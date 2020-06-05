@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AlwaysShowAction">
+    <item
+        android:id="@+id/action_video"
+        android:icon="@drawable/video_icon"
+        android:orderInCategory="100"
+        android:title="@string/txt_video"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_read"
+        android:icon="@drawable/read_icon"
+        android:orderInCategory="100"
+        android:title="@string/txt_read"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_write"
+        android:icon="@drawable/write_icon"
+        android:orderInCategory="100"
+        android:title="@string/txt_write"
+        app:showAsAction="always"/>
+
+    <!--<item
+        android:id="@+id/action_rotation_angle"
+        android:icon="@drawable/ic_rotation_angle_white_24dp"
+        android:orderInCategory="100"
+        android:title="@string/rotation_angle"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/action_rotation_angle_0"
+                android:title="@string/zero_degrees" />
+            <item
+                android:id="@+id/action_rotation_angle_45"
+                android:title="@string/forty_five_degrees" />
+            <item
+                android:id="@+id/action_rotation_angle_90"
+                android:title="@string/ninety_degrees" />
+            <item
+                android:id="@+id/action_rotation_angle_180"
+                android:title="@string/one_hundred_eighty_degrees" />
+        </menu>
+    </item>
+    <item
+        android:id="@+id/action_main_fab_color"
+        android:icon="@drawable/ic_custom_color"
+        android:orderInCategory="100"
+        android:title="@string/main_fab_color"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/action_main_fab_background_color_open"
+                android:title="@string/main_fab_color_open">
+                <menu>
+                    <item
+                        android:id="@+id/action_main_fab_background_color_closed_primary"
+                        android:title="@string/primary" />
+                    <item
+                        android:id="@+id/action_main_fab_background_color_closed_orange"
+                        android:title="@string/orange" />
+                    <item
+                        android:id="@+id/action_main_fab_background_color_closed_purple"
+                        android:title="@string/purple" />
+                    <item
+                        android:id="@+id/action_main_fab_background_color_closed_white"
+                        android:title="@string/white" />
+                    <item
+                        android:id="@+id/action_main_fab_background_color_closed_none"
+                        android:title="@string/none" />
+                </menu>
+            </item>
+            <item
+                android:id="@+id/action_main_fab_background_color_close"
+                android:title="@string/main_fab_color_close">
+                <menu>
+                    <item
+                        android:id="@+id/action_main_fab_background_color_opened_primary"
+                        android:title="@string/primary" />
+                    <item
+                        android:id="@+id/action_main_fab_background_color_opened_orange"
+                        android:title="@string/orange" />
+                    <item
+                        android:id="@+id/action_main_fab_background_color_opened_purple"
+                        android:title="@string/purple" />
+                    <item
+                        android:id="@+id/action_main_fab_background_color_opened_white"
+                        android:title="@string/white" />
+                    <item
+                        android:id="@+id/action_main_fab_background_color_opened_none"
+                        android:title="@string/none" />
+                </menu>
+            </item>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/action_toggle_list"
+        android:icon="@drawable/ic_list_white_24dp"
+        android:orderInCategory="100"
+        android:title="@string/action_toggle_list"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_toggle_reverse_animation"
+        android:icon="@drawable/ic_animation_white_24dp"
+        android:orderInCategory="100"
+        android:title="@string/action_toggle_reverse_animation"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_add_item"
+        android:icon="@drawable/ic_add_white_24dp"
+        android:orderInCategory="100"
+        android:title="@string/action_add_action_item"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_remove_item"
+        android:icon="@drawable/ic_delete_white_24dp"
+        android:orderInCategory="100"
+        android:title="@string/action_remove_action_item"
+        app:showAsAction="ifRoom" />-->
+</menu>

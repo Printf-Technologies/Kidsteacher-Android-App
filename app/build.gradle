@@ -1,0 +1,76 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.25.4'
+    }
+}
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.0"
+    defaultConfig {
+        //ndk.abiFilters 'armeabi-v7a','arm64-v8a','x86','x86_64'
+        applicationId "com.printf.kidsteacher"
+        minSdkVersion 17
+        targetSdkVersion 29
+        versionCode 28
+        versionName "28.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        /*ndk {
+            abiFilters "armeabi-v7a","x86"
+        }*/
+    }
+    buildTypes {
+        release {
+//            minifyEnabled true
+//            shrinkResources true
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            minifyEnabled false
+            debuggable false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'dev.dworks.libs:volleyplus:+'
+    implementation 'com.google.android.gms:play-services-ads:11.8.0'
+    implementation 'com.roger.catloadinglibrary:catloadinglibrary:1.0.4'
+    implementation "com.leinardi.android:speed-dial:2.0.1"
+    implementation 'com.google.code.gson:gson:2.8.2'
+    //implementation 'com.github.leinardi:FloatingActionButtonSpeedDial:master-SNAPSHOT'
+
+    implementation 'com.amitshekhar.android:android-networking:1.0.2'
+    implementation 'com.airbnb.android:lottie:2.7.0'
+    implementation 'com.github.duanhong169:colorpicker:1.1.6'
+//    compile project(':app:libraries:mkvideoplayer')
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.balysv:material-ripple:1.0.2'
+    api 'com.github.tcking:giraffeplayer2:0.1.25-lazyLoad'
+    //api project(':giraffeplayer2')
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#424242</color>
+    <color name="colorPrimaryDark">#FF7043</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
+    <color name="app_color">#1488d9</color>
+    <color name="colorGray">#BDBDBD</color>
+    <color name="smallBrusg">#F2602F</color>
+    <color name="mediumBrusg">#82CA3A</color>
+    <color name="largeBrusg">#FFC34E</color>
+</resources>

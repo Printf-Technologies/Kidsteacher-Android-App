@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Kids Teacher</string>
+
+    <string name="boldText">rockwell_extraBold.ttf</string>
+
+    <!--Test Ids-->
+    <!--ca-app-pub-3940256099942544/6300978111-->
+    <!--Printf Ids-->
+    <!--ca-app-pub-8817956591056490/9445293760-->
+    <string name="banner_home_footer">ca-app-pub-8817956591056490/9445293760</string>
+    <string name="alphabets">Alphabets</string>
+    <string name="sport">Sports</string>
+    <string name="proffesion">Profession</string>
+    <string name="transport">Transports</string>
+    <string name="fruits">Fruits</string>
+    <string name="body_parts">Body Parts</string>
+    <string name="animals">Animals</string>
+    <string name="months">Months</string>
+    <string name="days">Days</string>
+    <string name="colors">Colors</string>
+    <string name="shapes">Shapes</string>
+    <string name="numbers">Numbers</string>
+
+    <string name="txt_video">Video</string>
+    <string name="txt_read">Read</string>
+    <string name="txt_write">Write</string>
+    <string name="done"><b>DONE</b></string>
+    <string name="bird">Bird</string>
+    <string name="building">Building</string>
+    <string name="flower">Flowers</string>
+    <string name="fruit_tree">Fruit Tree</string>
+    <string name="vegetable">Vegetable</string>
+</resources>
