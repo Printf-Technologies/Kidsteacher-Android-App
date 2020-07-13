@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.25.4'
+        classpath 'io.fabric.tools:gradle:1.28.0'
     }
 }
 apply plugin: 'com.android.application'
@@ -35,7 +35,7 @@ android {
 //            minifyEnabled true
 //            shrinkResources true
 //            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            minifyEnabled false
+            minifyEnabled true
             debuggable false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

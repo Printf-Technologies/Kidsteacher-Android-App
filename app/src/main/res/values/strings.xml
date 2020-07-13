@@ -7,7 +7,9 @@
     <!--ca-app-pub-3940256099942544/6300978111-->
     <!--Printf Ids-->
     <!--ca-app-pub-8817956591056490/9445293760-->
-    <string name="banner_home_footer">ca-app-pub-8817956591056490/9445293760</string>
+    <!--Dev.Printf Ids-->
+    <!--ca-app-pub-1993362206897244/9728054970-->
+    <string name="banner_home_footer">ca-app-pub-1993362206897244/9728054970</string>
     <string name="alphabets">Alphabets</string>
     <string name="sport">Sports</string>
     <string name="proffesion">Profession</string>
