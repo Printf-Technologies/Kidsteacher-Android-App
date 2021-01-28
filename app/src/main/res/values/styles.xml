@@ -10,4 +10,12 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="ExoMediaButton.Previous">
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="ExoMediaButton.Next">
+        <item name="android:visibility">gone</item>
+    </style>
+
 </resources>

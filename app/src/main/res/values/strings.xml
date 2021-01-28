@@ -7,9 +7,14 @@
     <!--ca-app-pub-3940256099942544/6300978111-->
     <!--Printf Ids-->
     <!--ca-app-pub-8817956591056490/9445293760-->
-    <!--Dev.Printf Ids-->
-    <!--ca-app-pub-1993362206897244/9728054970-->
+    <!--dev.printftech-->
+    <!--ca-app-pub-1993362206897244~8798116684--><!--AppId-->
+    <!--ca-app-pub-1993362206897244/8653463569-->
+    <!--printftech.dev-->
+    <!--ca-app-pub-7489756755987350~6712684175--><!--AppId-->
+    <!--ca-app-pub-7489756755987350/2961141422-->
     <string name="banner_home_footer">ca-app-pub-1993362206897244/9728054970</string>
+    <string name="app_id">ca-app-pub-1993362206897244~8798116684</string>
     <string name="alphabets">Alphabets</string>
     <string name="sport">Sports</string>
     <string name="proffesion">Profession</string>

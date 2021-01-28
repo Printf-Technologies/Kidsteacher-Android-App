@@ -11,7 +11,7 @@
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_50sdp"
         android:contentDescription="Small"
-        app:srcCompat="@drawable/brush5"
+        android:src="@drawable/brush5"
         android:background="@color/colorGray"/>
 
     <ImageView
@@ -19,7 +19,7 @@
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_50sdp"
         android:contentDescription="Medium"
-        app:srcCompat="@drawable/brush4"
+        android:src="@drawable/brush4"
         android:background="@color/colorGray"/>
 
     <ImageView
@@ -27,7 +27,7 @@
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_50sdp"
         android:contentDescription="Large"
-        app:srcCompat="@drawable/brush3"
+        android:src="@drawable/brush3"
         android:background="@color/colorGray"/>
 
 </LinearLayout>

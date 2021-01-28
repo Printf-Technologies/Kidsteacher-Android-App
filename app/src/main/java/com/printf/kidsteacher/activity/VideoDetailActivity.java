@@ -2,11 +2,27 @@ package com.printf.kidsteacher.activity;
 
 import android.app.Activity;
 import android.content.res.Configuration;
-import androidx.databinding.DataBindingUtil;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.Player;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.source.ProgressiveMediaSource;
+import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.printf.kidsteacher.R;
@@ -16,8 +32,6 @@ import com.printf.kidsteacher.databinding.ActivityVideoDetailBinding;
 import java.util.ArrayList;
 import java.util.List;
 
-import tcking.github.com.giraffeplayer2.VideoView;
-
 public class VideoDetailActivity extends BaseActivity {
     ActivityVideoDetailBinding binding;
     Activity activity;
@@ -25,53 +39,122 @@ public class VideoDetailActivity extends BaseActivity {
     List<Datum> list = new ArrayList<>();
     int position = -1;
 
+    TextView tvVideoTitle;
+
+    private SimpleExoPlayer simpleExoPlayer;
+    private PlayerView playerView;
+    List<MediaItem> newItems;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_video_detail);
         activity = VideoDetailActivity.this;
+
+        Bundle bundle = getIntent().getBundleExtra("list");
+        position = bundle.getInt("position");
+        list = (List<Datum>) bundle.getSerializable("list");
+
+        List<MediaItem> newItems =new ArrayList<MediaItem>();
+        for(int i = 0; i <= 3; i++){
+            newItems.add( MediaItem.fromUri(Uri.parse(list.get(i).getVideoUrl())));
+        }
+
         init();
     }
 
     private void init() {
-        VideoView videoView = findViewById(R.id.video_view);
+
+        tvVideoTitle = findViewById(R.id.tvVideoTitle);
+
+        playerView = findViewById(R.id.video_view);
+        playerView.setShutterBackgroundColor(Color.TRANSPARENT);
+        playerView.requestFocus();
+
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        //mAdView.loadAd(adRequest);
         if (MainActivity.showAd.equalsIgnoreCase("1")) {
             mAdView.loadAd(adRequest);
         } else {
             mAdView.setVisibility(View.GONE);
         }
 
-        Bundle bundle = getIntent().getBundleExtra("list");
-        position = bundle.getInt("position");
-        list = (List<Datum>) bundle.getSerializable("list");
-        //this.position=Integer.parseInt(position);
-
-        if(position >= list.size())
-            finish();
-
-        String url = list.get(this.position).getVideoUrl();//"/*http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";*///getIntent().getStringExtra("url");
-        videoView.setVideoPath(url).getPlayer().start();
-        videoView.getVideoInfo().setTitle(list.get(this.position).getVideoName());
-        videoView.getVideoInfo().setFullScreenAnimation(true);
+        ImageView ivBack = findViewById(R.id.ivBack);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
+    public void setupPlayer() {
+
+        tvVideoTitle.setText(list.get(this.position).getVideoName());
+        simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(this);
+
+        DataSource.Factory mediaDataSourceFactory = new DefaultDataSourceFactory(this, Util.getUserAgent(this, "kids"));
+        ProgressiveMediaSource mediaSource = new ProgressiveMediaSource.Factory(mediaDataSourceFactory).createMediaSource( MediaItem.fromUri(Uri.parse(list.get(this.position).getVideoUrl())));
+        simpleExoPlayer.prepare(mediaSource);
+
+        playerView.setPlayer(simpleExoPlayer);
+
+
+        simpleExoPlayer.setPlayWhenReady(true);
+
+        simpleExoPlayer.setRepeatMode(Player.REPEAT_MODE_OFF);
+        simpleExoPlayer.addListener(new Player.EventListener() {
+            @Override
+            public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+                if (playbackState == ExoPlayer.STATE_BUFFERING) {
+
+                }
+                if (playbackState == ExoPlayer.STATE_READY && playWhenReady) {
+
+                }
+                if (playbackState == ExoPlayer.STATE_ENDED) {
+                    //releasePlayer();
+                    if(position == (list.size() - 1)) {
+                        position = 0;
+                    }else {
+                        position++;
+                    }
+                    setupPlayer();
+                }
+            }
+        });
+
+    }
+
+    public void releasePlayer() {
+        if (simpleExoPlayer == null) {
+            return;
+        }
+        simpleExoPlayer.setPlayWhenReady(false);
+        simpleExoPlayer.stop();
+        simpleExoPlayer.release();
+
+        playerView.onPause();
+        playerView.setPlayer(null);
+    }
+
+
     @Override
-    protected void onPause() {
-        super.onPause();
+    public void onResume() {
+        super.onResume();
+        setupPlayer();
+
         if (mAdView != null) {
-            mAdView.pause();
+            mAdView.resume();
         }
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    public void onPause() {
+        super.onPause();
+        releasePlayer();
+
         if (mAdView != null) {
-            mAdView.resume();
+            mAdView.pause();
         }
     }
 
@@ -90,9 +173,6 @@ public class VideoDetailActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-//        if (player != null && player.onBackPressed()) {
-//            return;
-//        }
         super.onBackPressed();
     }
 }
