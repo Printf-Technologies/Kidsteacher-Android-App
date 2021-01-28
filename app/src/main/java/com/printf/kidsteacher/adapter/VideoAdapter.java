@@ -6,8 +6,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -19,8 +19,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.printf.kidsteacher.R;
-import com.printf.kidsteacher.activity.BaseActivity;
-import com.printf.kidsteacher.activity.VideoActivity;
 import com.printf.kidsteacher.activity.VideoDetailActivity;
 import com.printf.kidsteacher.been.videoData.Datum;
 import com.printf.kidsteacher.other.Ease;
@@ -141,8 +139,8 @@ public class VideoAdapter extends RecyclerView.Adapter
                             Intent intent = new Intent(context, VideoDetailActivity.class);
                             Bundle bundle = new Bundle();
                             bundle.putSerializable("list",(Serializable) list);
-                            bundle.putInt("position",getAdapterPosition());
-                            intent.putExtra("list",bundle);
+                            bundle.putInt("position", getAdapterPosition());
+                            intent.putExtra("list", bundle);
                             context.startActivity(intent);
                             ((Activity)context).overridePendingTransition(R.anim.enter_left,R.anim.exit_right);
                         }

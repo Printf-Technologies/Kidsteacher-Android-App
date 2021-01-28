@@ -3,8 +3,8 @@ package com.printf.kidsteacher.adapter;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.printf.kidsteacher.R;
 import com.printf.kidsteacher.been.ReadBeen;
 import com.printf.kidsteacher.other.Ease;
@@ -87,6 +86,10 @@ public class ReadAdapter extends RecyclerView.Adapter {
 
                         @Override
                         public void onAnimationEnd(Animator animator) {
+
+                            if(getAdapterPosition() >= list.size())
+                                return;
+
                             isOpened = false;
 //                            recylerViewClick.OnClick(list.get(getAdapterPosition()).getName());
                             if(getAdapterPosition() >= 0)

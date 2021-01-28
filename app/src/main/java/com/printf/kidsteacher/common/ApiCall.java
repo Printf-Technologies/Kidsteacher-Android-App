@@ -1,7 +1,7 @@
 package com.printf.kidsteacher.common;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -32,15 +32,19 @@ public class ApiCall
         if(CheckInternet.networkAvailability(context))
         {
             //loader.show();
-            if(isLoder)
-            {mView.show(((FragmentActivity)context).getSupportFragmentManager(), "");}
+            if(isLoder){
+               mView.show(((FragmentActivity)context).getSupportFragmentManager(), "");
+            }
+
             RequestQueue requestQueue = Volley.newRequestQueue(context);
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url,new Response.Listener<String>() {
                 @Override
                 public void onResponse(String responce)
                 {
-                    if(isLoder)
-                    {mView.dismiss();}
+                    if(isLoder){
+                        if(mView.isAdded())
+                            mView.dismiss();
+                    }
                     //loader.hide();
 //                    Log.e("TAG","login responce = "+responce);
                     apiResponce.Responce(responce);
@@ -50,8 +54,10 @@ public class ApiCall
                 @Override
                 public void onErrorResponse(VolleyError volleyError)
                 {
-                    if(isLoder)
-                    {mView.dismiss();}
+                    if(isLoder){
+                        if(mView.isAdded())
+                            mView.dismiss();
+                    }
                     //loader.hide();
                     apiResponce.Error(volleyError.getMessage());
                 }

@@ -1,6 +1,6 @@
 package com.printf.kidsteacher.other;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 class EasingProvider {
     /**

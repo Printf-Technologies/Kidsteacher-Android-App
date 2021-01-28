@@ -2,12 +2,10 @@ package com.printf.kidsteacher.adapter;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +16,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.printf.kidsteacher.R;
-import com.printf.kidsteacher.activity.VideoDetailActivity;
 import com.printf.kidsteacher.been.WriteBeen;
 import com.printf.kidsteacher.other.Ease;
 import com.printf.kidsteacher.other.EasingInterpolator;
 import com.printf.kidsteacher.other.RecyclerImage;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class WriteAdapter extends RecyclerView.Adapter<WriteAdapter.MyViewHolder>
@@ -98,6 +94,10 @@ public class WriteAdapter extends RecyclerView.Adapter<WriteAdapter.MyViewHolder
 
                         @Override
                         public void onAnimationEnd(Animator animator) {
+
+                            if(getAdapterPosition() >= list.size())
+                                return;
+
                             isOpened = false;
                             recylerViewClick.onClickImg(list.get(getAdapterPosition()).getImg(),list.get(getAdapterPosition()).getName(),getAdapterPosition());
                         }

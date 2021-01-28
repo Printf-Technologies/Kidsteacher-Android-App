@@ -2,8 +2,8 @@ package com.printf.kidsteacher.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.PagerAdapter;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

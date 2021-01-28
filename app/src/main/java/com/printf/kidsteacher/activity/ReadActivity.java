@@ -3,15 +3,12 @@ package com.printf.kidsteacher.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
+import androidx.databinding.DataBindingUtil;
+
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -20,7 +17,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -34,7 +30,6 @@ import com.printf.kidsteacher.fragment.ReadFragmet;
 import com.printf.kidsteacher.fragment.VideoFragment;
 import com.printf.kidsteacher.fragment.WriteFragment;
 import com.printf.kidsteacher.other.RecylerViewClick;
-import com.printf.kidsteacher.view.DrawingView;
 
 import java.util.ArrayList;
 

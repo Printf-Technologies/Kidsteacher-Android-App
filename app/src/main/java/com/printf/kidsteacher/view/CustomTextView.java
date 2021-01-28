@@ -4,11 +4,10 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 import com.printf.kidsteacher.R;
 
-public class CustomTextView extends android.support.v7.widget.AppCompatTextView
+public class CustomTextView extends androidx.appcompat.widget.AppCompatTextView
 {
     public CustomTextView(Context context, AttributeSet attrs) {
         super(context, attrs);

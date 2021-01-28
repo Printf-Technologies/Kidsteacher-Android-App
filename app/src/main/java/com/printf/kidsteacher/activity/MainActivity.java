@@ -3,20 +3,23 @@ package com.printf.kidsteacher.activity;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.printf.kidsteacher.R;
 import com.printf.kidsteacher.adapter.MainAdpter;
 import com.printf.kidsteacher.been.MainBeen;
@@ -34,9 +37,9 @@ import com.printf.kidsteacher.other.RecylerViewClick;
 
 import org.json.JSONObject;
 
-import io.fabric.sdk.android.Fabric;
-
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends BaseActivity implements RecylerViewClick {
     public MainActivity activity;
@@ -57,13 +60,25 @@ public class MainActivity extends BaseActivity implements RecylerViewClick {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
+        //Fabric.with(this, new Crashlytics());
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         //setContentView(R.layout.activity_main);
         activity = MainActivity.this;
         PrintfGlobal.countryCode = PreferenceSession.getUserSession(activity, "country_code");
         GetAndSaveUserCountryCode();
         init();
+
+        /*List<String> testDeviceIds = Arrays.asList("88006378043BFA148015652F08E56307");
+        RequestConfiguration configuration = new RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build();
+        MobileAds.setRequestConfiguration(configuration);*/
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+
+            }
+        });
+
     }
 
     private void init() {
@@ -188,7 +203,7 @@ public class MainActivity extends BaseActivity implements RecylerViewClick {
                     if (jsonObject.has("Data") && !jsonObject.getString("Data").equalsIgnoreCase("")) {
                         showAd = jsonObject.getString("Data");
                         if (showAd.equalsIgnoreCase("1")) {
-                            mAdView.setVisibility(View.VISIBLE);
+                           mAdView.setVisibility(View.VISIBLE);
                             mAdView.loadAd(adRequest);
 
                             final RelativeLayout.LayoutParams layoutParams1 = (RelativeLayout.LayoutParams) ll_share.getLayoutParams();
@@ -201,7 +216,7 @@ public class MainActivity extends BaseActivity implements RecylerViewClick {
                             layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
                             ll_share.setLayoutParams(layoutParams1);
 
-                            mAdView.setVisibility(View.GONE);
+                           mAdView.setVisibility(View.GONE);
                             Helper.remove_width = dpToPx(114);
                             Helper.remove_hight = (int) getResources().getDimension(R.dimen._40sdp);//dpToPx(40);//150;
                             Helper.getDeviceHightWidth(activity);

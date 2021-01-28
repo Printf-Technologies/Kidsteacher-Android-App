@@ -2,11 +2,10 @@ package com.printf.kidsteacher.activity;
 
 import android.app.Activity;
 import android.content.res.Configuration;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -18,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tcking.github.com.giraffeplayer2.VideoView;
-import tv.danmaku.ijk.media.player.IMediaPlayer;
 
 public class VideoDetailActivity extends BaseActivity {
     ActivityVideoDetailBinding binding;
@@ -51,6 +49,10 @@ public class VideoDetailActivity extends BaseActivity {
         position = bundle.getInt("position");
         list = (List<Datum>) bundle.getSerializable("list");
         //this.position=Integer.parseInt(position);
+
+        if(position >= list.size())
+            finish();
+
         String url = list.get(this.position).getVideoUrl();//"/*http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";*///getIntent().getStringExtra("url");
         videoView.setVideoPath(url).getPlayer().start();
         videoView.getVideoInfo().setTitle(list.get(this.position).getVideoName());
