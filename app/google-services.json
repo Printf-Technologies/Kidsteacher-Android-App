@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "775635225594",
+    "firebase_url": "https://kids-teacher-40ada.firebaseio.com",
+    "project_id": "kids-teacher-40ada",
+    "storage_bucket": "kids-teacher-40ada.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775635225594:android:56c5af4382d7cfda857243",
+        "android_client_info": {
+          "package_name": "com.printf.kidsteacher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "775635225594-rh6e5eetij241g1euhqoshlaqdm9hhgb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_OPeamOyzbbWHS3X6pipE2wIuP_dOYfk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "775635225594-rh6e5eetij241g1euhqoshlaqdm9hhgb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
