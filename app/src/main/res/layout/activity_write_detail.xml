@@ -30,7 +30,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_back_"/>
+                        android:src="@drawable/ic_back_"/>
 
                 </LinearLayout>
 
@@ -130,7 +130,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_search"/>
+                        android:src="@drawable/ic_search"/>
 
                 </LinearLayout>
 
