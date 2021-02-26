@@ -16,11 +16,10 @@ public class BaseFragment extends Fragment
     public Gson gson;
     protected Context activity;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         gson = new Gson();
-        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override

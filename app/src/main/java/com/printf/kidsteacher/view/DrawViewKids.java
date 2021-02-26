@@ -159,8 +159,8 @@ public class DrawViewKids extends View {
         this.mPaint.setStrokeCap(this.cap);
         this.mPaint.setStrokeWidth(this.strokeWidth);
         this.mBitmapPaint = new Paint(4);
-        this.canvasHeight = Helper.height; //1080;//1830;//Global.DeviceHeight;
-        this.canvasWidth = Helper.width;//1800;//1080;//Global.DeviceWidth;
+        this.canvasHeight = Helper.getScreenHeight(context); //Helper.height; //1080;//1830;//Global.DeviceHeight;
+        this.canvasWidth = Helper.getScreenWidth(context); //Helper.width;//1800;//1080;//Global.DeviceWidth;
         this.canvasBitmap = Bitmap.createBitmap(this.canvasWidth, this.canvasHeight, Config.ARGB_8888);
         this.mCanvas = new Canvas(this.canvasBitmap);
     }
