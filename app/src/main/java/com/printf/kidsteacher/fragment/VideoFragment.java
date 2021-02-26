@@ -43,9 +43,13 @@ public class VideoFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_video, container, false);
+        return  inflater.inflate(R.layout.fragment_video, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         init(view);
-        return view;
     }
 
     private void init(View view) {
@@ -53,8 +57,8 @@ public class VideoFragment extends BaseFragment {
         ll_noInternet = view.findViewById(R.id.ll_noInternet);
         tv_message = view.findViewById(R.id.tv_message);
         iv_refresh = view.findViewById(R.id.iv_refresh);
-        //callApi();
-        new Handler().postDelayed(new Runnable() {@Override public void run() { callApi(); }},1000);
+        callApi();
+        //new Handler().postDelayed(new Runnable() {@Override public void run() { callApi(); }},1000);
 
         animation = AnimationUtils.loadAnimation(getActivity(), R.anim.bounce);
         animation.setAnimationListener(new Animation.AnimationListener() {
@@ -65,8 +69,7 @@ public class VideoFragment extends BaseFragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                //callApi();
-                new Handler().postDelayed(new Runnable() {@Override public void run() { callApi(); }},1000);
+               callApi();
             }
 
             @Override
@@ -91,12 +94,15 @@ public class VideoFragment extends BaseFragment {
         ApiCall.GetApi(true, false, activity, WebServices.VIDEO_API, new ApiResponce() {
             @Override
             public void Responce(String responce) {
-                ll_noInternet.setVisibility(View.GONE);
-                videoData = new Gson().fromJson(responce, VideoData.class);
-                setAdapter(videoData);
-                if (videoData.getData().size() == 0) {
-                    tv_message.setText("Awesome videos coming soon. We are creating awesome videos for you.");
-                    ll_noInternet.setVisibility(View.VISIBLE);
+
+                if(isVisible() && isAdded()){
+                    ll_noInternet.setVisibility(View.GONE);
+                    videoData = new Gson().fromJson(responce, VideoData.class);
+                    setAdapter(videoData);
+                    if (videoData.getData().size() == 0) {
+                        tv_message.setText("Awesome videos coming soon. We are creating awesome videos for you.");
+                        ll_noInternet.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 
@@ -135,7 +141,7 @@ public class VideoFragment extends BaseFragment {
 
     }
 
-    @Override
+       @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {

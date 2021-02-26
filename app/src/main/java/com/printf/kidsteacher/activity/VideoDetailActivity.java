@@ -34,7 +34,7 @@ import java.util.List;
 
 public class VideoDetailActivity extends BaseActivity {
     ActivityVideoDetailBinding binding;
-    Activity activity;
+
     AdView mAdView;
     List<Datum> list = new ArrayList<>();
     int position = -1;
@@ -43,12 +43,11 @@ public class VideoDetailActivity extends BaseActivity {
 
     private SimpleExoPlayer simpleExoPlayer;
     private PlayerView playerView;
-    List<MediaItem> newItems;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_video_detail);
-        activity = VideoDetailActivity.this;
 
         Bundle bundle = getIntent().getBundleExtra("list");
         position = bundle.getInt("position");
@@ -106,10 +105,8 @@ public class VideoDetailActivity extends BaseActivity {
             @Override
             public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
                 if (playbackState == ExoPlayer.STATE_BUFFERING) {
-
                 }
                 if (playbackState == ExoPlayer.STATE_READY && playWhenReady) {
-
                 }
                 if (playbackState == ExoPlayer.STATE_ENDED) {
                     //releasePlayer();
