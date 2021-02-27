@@ -22,32 +22,26 @@ public class Helper
     }
 
     public static int getScreenWidth(Context context){
-        if(context == null)
-            return 1080;
+        int w = width;
 
-         DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-
-        int w = displayMetrics.widthPixels;
-
-        if(w == 0)
-            w = 1080;
+        if(w == 0) {
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            w = displayMetrics.widthPixels;
+        }
 
         return w;
     }
 
     public static int getScreenHeight(Context context){
 
-        if(context == null)
-            return 1080;
+        int h = height;
 
-         DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-
-        int h = displayMetrics.heightPixels;
-
-        if(h == 0)
-            h = 1080;
+        if(h == 0) {
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            h = displayMetrics.heightPixels;
+        }
 
         return h;
     }

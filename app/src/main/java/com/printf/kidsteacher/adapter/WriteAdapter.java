@@ -94,22 +94,20 @@ public class WriteAdapter extends RecyclerView.Adapter<WriteAdapter.MyViewHolder
 
                         @Override
                         public void onAnimationEnd(Animator animator) {
-
-                            if(getAdapterPosition() >= list.size())
+                            int pos = getAdapterPosition();
+                            if(pos < 0 || pos >= list.size())
                                 return;
 
                             isOpened = false;
-                            recylerViewClick.onClickImg(list.get(getAdapterPosition()).getImg(),list.get(getAdapterPosition()).getName(),getAdapterPosition());
+                            recylerViewClick.onClickImg(list.get(pos).getImg(), list.get(pos).getName(), pos);
                         }
 
                         @Override
                         public void onAnimationCancel(Animator animator) {
-
                         }
 
                         @Override
                         public void onAnimationRepeat(Animator animator) {
-
                         }
                     });
                 }

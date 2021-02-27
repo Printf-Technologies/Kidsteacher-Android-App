@@ -53,11 +53,6 @@ public class VideoDetailActivity extends BaseActivity {
         position = bundle.getInt("position");
         list = (List<Datum>) bundle.getSerializable("list");
 
-        List<MediaItem> newItems =new ArrayList<MediaItem>();
-        for(int i = 0; i <= 3; i++){
-            newItems.add( MediaItem.fromUri(Uri.parse(list.get(i).getVideoUrl())));
-        }
-
         init();
     }
 
@@ -110,11 +105,8 @@ public class VideoDetailActivity extends BaseActivity {
                 }
                 if (playbackState == ExoPlayer.STATE_ENDED) {
                     //releasePlayer();
-                    if(position == (list.size() - 1)) {
-                        position = 0;
-                    }else {
-                        position++;
-                    }
+                    position = (position + 1) % list.size();
+
                     setupPlayer();
                 }
             }
