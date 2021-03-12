@@ -20,10 +20,12 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.printf.kidsteacher.BaseActivity;
 import com.printf.kidsteacher.R;
 import com.printf.kidsteacher.fragment.ReadFragmet;
 import com.printf.kidsteacher.fragment.VideoFragment;
 import com.printf.kidsteacher.fragment.WriteFragment;
+import com.printf.kidsteacher.mainactivity.MainActivity;
 
 
 public class VideoActivity extends BaseActivity implements View.OnClickListener

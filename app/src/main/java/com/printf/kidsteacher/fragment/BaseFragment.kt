@@ -1,30 +1,24 @@
-package com.printf.kidsteacher.fragment;
+package com.printf.kidsteacher.fragment
 
-import android.content.Context;
-import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.content.Context
+import com.google.gson.Gson
+import android.os.Bundle
+import androidx.fragment.app.Fragment
 
-import com.google.gson.Gson;
+open class BaseFragment : Fragment() {
+    var gson: Gson? = null
 
-public class BaseFragment extends Fragment
-{
-    public Gson gson;
-    protected Context activity;
+    @JvmField
+    protected var activity: Context? = null
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        gson = new Gson();
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        gson = Gson()
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        activity = context;
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity = context
     }
 }

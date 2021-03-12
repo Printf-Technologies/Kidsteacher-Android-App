@@ -22,7 +22,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.printf.kidsteacher.R;
-import com.printf.kidsteacher.activity.MainActivity;
+import com.printf.kidsteacher.mainactivity.MainActivity;
 
 import java.util.LinkedList;
 import java.util.Queue;

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:fab="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -10,175 +9,121 @@
         android:keepScreenOn="true">
 
         <RelativeLayout
-            android:orientation="horizontal"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
             android:background="@drawable/app_bg"
-            android:id="@+id/toolbar">
+            android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/ll_start"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:padding="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
-                android:id="@+id/ll_start">
+                android:gravity="center"
+                android:padding="@dimen/_10sdp">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_back_"/>
+                    android:src="@drawable/ic_back_" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_centerInParent="true">
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
 
                 <RelativeLayout
+                    android:id="@+id/rl_video"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:id="@+id/rl_video">
+                    android:orientation="vertical">
 
                     <com.printf.kidsteacher.view.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
                         android:text="Video"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/_18sdp"
-                        android:layout_centerInParent="true"
-                        app:customText="@string/boldText"/>
+                        app:customText="@string/boldText" />
 
                     <View
+                        android:id="@+id/view_video"
                         android:layout_width="@dimen/_120sdp"
                         android:layout_height="@dimen/_2sdp"
-                        android:background="@color/colorWhite"
                         android:layout_alignParentBottom="true"
-                        android:id="@+id/view_video"
-                        android:visibility="invisible"/>
+                        android:background="@color/colorWhite"
+                        android:visibility="invisible" />
 
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_read"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:id="@+id/rl_read">
+                    android:orientation="vertical">
 
                     <com.printf.kidsteacher.view.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
                         android:text="Read"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/_18sdp"
-                        android:layout_centerInParent="true"
-                        app:customText="@string/boldText"/>
+                        app:customText="@string/boldText" />
 
                     <View
+                        android:id="@+id/view_read"
                         android:layout_width="@dimen/_120sdp"
                         android:layout_height="@dimen/_2sdp"
-                        android:background="@color/colorWhite"
                         android:layout_alignParentBottom="true"
-                        android:id="@+id/view_read"/>
+                        android:background="@color/colorWhite" />
 
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_write"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:id="@+id/rl_write">
+                    android:orientation="vertical">
 
                     <com.printf.kidsteacher.view.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
                         android:text="Write"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/_18sdp"
-                        android:layout_centerInParent="true"
-                        app:customText="@string/boldText"/>
+                        app:customText="@string/boldText" />
 
                     <View
+                        android:id="@+id/view_write"
                         android:layout_width="@dimen/_120sdp"
                         android:layout_height="@dimen/_2sdp"
-                        android:background="@color/colorWhite"
                         android:layout_alignParentBottom="true"
-                        android:id="@+id/view_write"
-                        android:visibility="invisible"/>
+                        android:background="@color/colorWhite"
+                        android:visibility="invisible" />
 
                 </RelativeLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:padding="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:id="@+id/ll_end"
-                android:layout_alignParentEnd="true"
-                android:visibility="gone">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_search"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@color/app_color"
-                android:id="@+id/ll_search"
-                android:visibility="gone">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_left_arrow"
-                    android:padding="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:id="@+id/iv_back"/>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint="Search here"
-                    android:textColor="@color/colorWhite"
-                    android:textColorHint="@color/colorWhite"
-                    android:id="@+id/et_search"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:imeOptions="actionSearch"/>
-
-            </LinearLayout>
 
         </RelativeLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/rv_read"
-            android:layout_above="@+id/adView"
-            android:layout_below="@id/toolbar"/>
-
         <FrameLayout
+            android:id="@+id/frameLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/frameLayout"
-            android:layout_above="@+id/adView"
-            android:layout_below="@id/toolbar"/>
+            android:layout_above="@+id/mAdView"
+            android:layout_below="@id/toolbar" />
 
         <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
+            android:id="@+id/mAdView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -186,28 +131,6 @@
             app:adSize="SMART_BANNER"
             app:adUnitId="@string/banner_home_footer" />
 
-        <com.leinardi.android.speeddial.SpeedDialOverlayLayout
-            android:id="@+id/overlay"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:clickable_overlay="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-        <com.leinardi.android.speeddial.SpeedDialView
-            android:id="@+id/speedDial"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="2dp"
-            app:layout_behavior="@string/speeddial_scrolling_view_snackbar_behavior"
-            app:sdExpansionMode="top"
-            app:sdMainFabAnimationRotateAngle="90"
-            app:sdMainFabClosedSrc="@drawable/ic_add_white_24dp"
-            app:sdMainFabOpenedSrc="@drawable/ic_pencil_alt_white_24dp"
-            app:sdOverlayLayout="@id/overlay"
-            android:layout_alignParentBottom="true"
-            android:layout_above="@id/adView"
-            android:layout_alignParentEnd="true"
-            android:visibility="gone"/>
 
     </RelativeLayout>
 

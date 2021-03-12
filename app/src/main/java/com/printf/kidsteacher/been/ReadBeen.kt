@@ -1,28 +1,16 @@
-package com.printf.kidsteacher.been;
+package com.printf.kidsteacher.been
 
-public class ReadBeen
-{
-    String name;
-    int img;
+class ReadBeen{
+    var name: String
+    var img: Int
 
-    public ReadBeen(String name, int img) {
-        this.name = name;
-        this.img = img;
+    constructor(name: String, img: Int) {
+        this.name = name
+        this.img = img
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getImg() {
-        return img;
-    }
-
-    public void setImg(int img) {
-        this.img = img;
+    constructor(img: Int, name: String) {
+        this.name = name
+        this.img = img
     }
 }

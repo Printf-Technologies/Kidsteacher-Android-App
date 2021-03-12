@@ -25,14 +25,17 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
+import com.printf.kidsteacher.BaseActivity;
 import com.printf.kidsteacher.R;
 import com.printf.kidsteacher.adapter.ReadAdapter;
 import com.printf.kidsteacher.been.ReadBeen;
+import com.printf.kidsteacher.category.ReadActivity;
 import com.printf.kidsteacher.databinding.ActivityWriteBinding;
 import com.printf.kidsteacher.fragment.ReadFragmet;
 import com.printf.kidsteacher.fragment.VideoFragment;
 import com.printf.kidsteacher.fragment.WriteFragment;
-import com.printf.kidsteacher.other.RecylerViewClick;
+import com.printf.kidsteacher.mainactivity.MainActivity;
+import com.printf.kidsteacher.other.RecyclerViewClick;
 
 import java.util.ArrayList;
 
@@ -120,7 +123,7 @@ public class WriteActivity extends BaseActivity implements View.OnClickListener
                         return true; // false will close it without animation
                     case R.id.action_read:
                         mSpeedDialView.close();
-                        Intent intent_ = new Intent(activity,ReadActivity.class);
+                        Intent intent_ = new Intent(activity, ReadActivity.class);
                         startActivity(intent_);
                         overridePendingTransition(R.anim.enter_left,R.anim.exit_right);
                         finish();
@@ -301,48 +304,15 @@ public class WriteActivity extends BaseActivity implements View.OnClickListener
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(activity,4);
         rv_write.setLayoutManager(gridLayoutManager);
-        readAdapter = new ReadAdapter(activity, list, new RecylerViewClick() {
+        readAdapter = new ReadAdapter(list, new RecyclerViewClick() {
             @Override
-            public void OnClick(String name) {
+            public void OnClick(int img, String name, int position) {
                 Intent intent = new Intent(activity,WriteDetailActivity.class);
-                if (name.equalsIgnoreCase(getString(R.string.alphabets))) {
-                    intent.putExtra("type",getString(R.string.alphabets));
-                } else if (name.equalsIgnoreCase(getString(R.string.numbers))) {
-                    intent.putExtra("type",getString(R.string.numbers));
-                } else if (name.equalsIgnoreCase(getString(R.string.shapes))) {
-                    intent.putExtra("type",getString(R.string.shapes));
-                } else if (name.equalsIgnoreCase(getString(R.string.colors))) {
-                    intent.putExtra("type",getString(R.string.colors));
-                } else if (name.equalsIgnoreCase(getString(R.string.days))) {
-                    intent.putExtra("type",getString(R.string.days));
-                } else if (name.equalsIgnoreCase(getString(R.string.months))) {
-                    intent.putExtra("type",getString(R.string.months));
-                } else if (name.equalsIgnoreCase(getString(R.string.animals))) {
-                    intent.putExtra("type",getString(R.string.animals));
-                } else if (name.equalsIgnoreCase(getString(R.string.body_parts))) {
-                    intent.putExtra("type",getString(R.string.body_parts));
-                } else if (name.equalsIgnoreCase(getString(R.string.fruits))) {
-                    intent.putExtra("type",getString(R.string.fruits));
-                } else if (name.equalsIgnoreCase(getString(R.string.transport))) {
-                    intent.putExtra("type",getString(R.string.transport));
-                } else if (name.equalsIgnoreCase(getString(R.string.proffesion))) {
-                    intent.putExtra("type",getString(R.string.proffesion));
-                } else if (name.equalsIgnoreCase(getString(R.string.sport))) {
-                    intent.putExtra("type",getString(R.string.sport));
-                } else if (name.equalsIgnoreCase(getString(R.string.bird))) {
-                    intent.putExtra("type", getString(R.string.bird));
-                } else if (name.equalsIgnoreCase(getString(R.string.building))) {
-                    intent.putExtra("type", getString(R.string.building));
-                } else if (name.equalsIgnoreCase(getString(R.string.flower))) {
-                    intent.putExtra("type", getString(R.string.flower));
-                } else if (name.equalsIgnoreCase(getString(R.string.fruit_tree))) {
-                    intent.putExtra("type", getString(R.string.fruit_tree));
-                } else if (name.equalsIgnoreCase(getString(R.string.vegetable))) {
-                    intent.putExtra("type", getString(R.string.vegetable));
-                }
+                intent.putExtra("type",name);
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter_left,R.anim.exit_right);
             }
+
         });
         rv_write.setAdapter(readAdapter);
     }

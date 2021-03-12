@@ -1,11 +1,9 @@
 package com.printf.kidsteacher.activity;
 
-import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,9 +23,11 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.printf.kidsteacher.BaseActivity;
 import com.printf.kidsteacher.R;
 import com.printf.kidsteacher.been.videoData.Datum;
 import com.printf.kidsteacher.databinding.ActivityVideoDetailBinding;
+import com.printf.kidsteacher.mainactivity.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,28 +1,3 @@
-package com.printf.kidsteacher.been;
+package com.printf.kidsteacher.been
 
-public class MainBeen
-{
-    String name;
-    int img;
-
-    public MainBeen(String name, int img) {
-        this.name = name;
-        this.img = img;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getImg() {
-        return img;
-    }
-
-    public void setImg(int img) {
-        this.img = img;
-    }
-}
+class MainBeen(var name: String, var img: Int)

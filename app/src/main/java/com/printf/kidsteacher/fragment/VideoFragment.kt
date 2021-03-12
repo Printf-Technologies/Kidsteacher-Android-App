@@ -1,152 +1,108 @@
-package com.printf.kidsteacher.fragment;
+package com.printf.kidsteacher.fragment
 
-import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.ActivityInfo;
-import android.os.Bundle;
-import android.os.Handler;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.app.Activity
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.content.pm.ActivityInfo
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import androidx.recyclerview.widget.GridLayoutManager
+import com.google.gson.Gson
+import com.printf.kidsteacher.R
+import com.printf.kidsteacher.adapter.VideoAdapter
+import com.printf.kidsteacher.been.videoData.VideoData
+import com.printf.kidsteacher.common.ApiCall
+import com.printf.kidsteacher.common.ApiResponce
+import com.printf.kidsteacher.common.CheckInternet
+import com.printf.kidsteacher.common.WebServices
+import kotlinx.android.synthetic.main.fragment_video.*
 
-import com.google.gson.Gson;
-import com.printf.kidsteacher.R;
-import com.printf.kidsteacher.adapter.VideoAdapter;
-import com.printf.kidsteacher.been.videoData.VideoData;
-import com.printf.kidsteacher.common.ApiCall;
-import com.printf.kidsteacher.common.ApiResponce;
-import com.printf.kidsteacher.common.CheckInternet;
-import com.printf.kidsteacher.common.WebServices;
-import com.printf.kidsteacher.view.CustomTextView;
+class VideoFragment : BaseFragment() {
+    private var mReceiver: BroadcastReceiver? = null
+    var videoAdapter: VideoAdapter? = null
+    var videoData: VideoData? = null
+    var animation: Animation? = null
 
-public class VideoFragment extends BaseFragment {
-    private BroadcastReceiver mReceiver;
-    RecyclerView rv_video;
-    VideoAdapter videoAdapter;
-    VideoData videoData;
-    LinearLayout ll_noInternet;
-    ImageView iv_refresh;
-    Animation animation;
-    CustomTextView tv_message;
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return  inflater.inflate(R.layout.fragment_video, container, false);
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_video, container, false)
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        init(view);
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        init()
     }
 
-    private void init(View view) {
-        rv_video = view.findViewById(R.id.rv_video);
-        ll_noInternet = view.findViewById(R.id.ll_noInternet);
-        tv_message = view.findViewById(R.id.tv_message);
-        iv_refresh = view.findViewById(R.id.iv_refresh);
-        callApi();
-        //new Handler().postDelayed(new Runnable() {@Override public void run() { callApi(); }},1000);
-
-        animation = AnimationUtils.loadAnimation(getActivity(), R.anim.bounce);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
+    private fun init() {
+        callApi()
+        animation = AnimationUtils.loadAnimation(getActivity(), R.anim.bounce)
+        animation?.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) {}
+            override fun onAnimationEnd(animation: Animation) {
+                callApi()
             }
 
-            @Override
-            public void onAnimationEnd(Animation animation) {
-               callApi();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        iv_refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                iv_refresh.startAnimation(animation);
-            }
-        });
+            override fun onAnimationRepeat(animation: Animation) {}
+        })
+        iv_refresh?.setOnClickListener(View.OnClickListener { iv_refresh?.startAnimation(animation) })
     }
 
-    private void callApi() {
+    private fun callApi() {
         if (!CheckInternet.networkAvailability(activity)) {
-            tv_message.setText("No internet connection. Please connect to internet and try again.");
-            ll_noInternet.setVisibility(View.VISIBLE);
-            return;
+            tv_message!!.text = "No internet connection. Please connect to internet and try again."
+            ll_noInternet!!.visibility = View.VISIBLE
+            return
         }
-        ApiCall.GetApi(true, false, activity, WebServices.VIDEO_API, new ApiResponce() {
-            @Override
-            public void Responce(String responce) {
-
-                if(isVisible() && isAdded()){
-                    ll_noInternet.setVisibility(View.GONE);
-                    videoData = new Gson().fromJson(responce, VideoData.class);
-                    setAdapter(videoData);
-                    if (videoData.getData().size() == 0) {
-                        tv_message.setText("Awesome videos coming soon. We are creating awesome videos for you.");
-                        ll_noInternet.setVisibility(View.VISIBLE);
+        ApiCall.GetApi(true, false, activity, WebServices.VIDEO_API, object : ApiResponce {
+            override fun Responce(responce: String) {
+                if (isVisible && isAdded) {
+                    ll_noInternet!!.visibility = View.GONE
+                    videoData = Gson().fromJson(responce, VideoData::class.java)
+                    setAdapter(videoData)
+                    if (videoData?.data?.size == 0) {
+                        tv_message!!.text = "Awesome videos coming soon. We are creating awesome videos for you."
+                        ll_noInternet!!.visibility = View.VISIBLE
                     }
                 }
             }
 
-            @Override
-            public void Error(String error) {
-
-            }
-        });
+            override fun Error(error: String) {}
+        })
     }
 
-    private void setAdapter(VideoData videoData) {
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
-        rv_video.setLayoutManager(gridLayoutManager);
-        videoAdapter = new VideoAdapter(getActivity(), videoData.getData());
-        rv_video.setAdapter(videoAdapter);
+    private fun setAdapter(videoData: VideoData?) {
+        val gridLayoutManager = GridLayoutManager(getActivity(), 3)
+        rv_video!!.layoutManager = gridLayoutManager
+        videoAdapter = VideoAdapter(getActivity(), videoData!!.data)
+        rv_video!!.adapter = videoAdapter
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        IntentFilter intentFilter = new IntentFilter("android.intent.action.MAIN");
-        mReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String tempSearchedText = intent.getStringExtra("Search");
-
+    override fun onResume() {
+        super.onResume()
+        val intentFilter = IntentFilter("android.intent.action.MAIN")
+        mReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                val tempSearchedText = intent.getStringExtra("Search")
                 if (videoAdapter == null) {
-                    return;
+                    return
                 }
-                videoAdapter.filter(tempSearchedText);
+                videoAdapter!!.filter(tempSearchedText)
             }
-        };
+        }
         //registering our receiver
-        getActivity().registerReceiver(mReceiver, intentFilter);
-
+        getActivity()!!.registerReceiver(mReceiver, intentFilter)
     }
 
-       @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser) {
-            Activity a = getActivity();
-            if (a != null) a.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            val a: Activity? = getActivity()
+            if (a != null) a.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
     }
 }

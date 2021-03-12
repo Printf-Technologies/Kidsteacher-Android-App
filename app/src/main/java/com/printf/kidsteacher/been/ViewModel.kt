@@ -1,155 +1,80 @@
-package com.printf.kidsteacher.been;
+package com.printf.kidsteacher.been
 
 /**
  * Created by baps on 01-10-2018.
  */
+class ViewModel {
+    var image: Int? = null
+    var background: Int? = null
+    var name: String
+    var music: Int
+    var capital: String? = null
+    var small: String? = null
+    var infoMusic: Int
+    var nameMusic = 0
+    var textColor: String? = null
 
-public class ViewModel {
-
-    private Integer image;
-    private Integer background;
-    private String name;
-    private Integer music;
-    private String capital;
-    private String small;
-    private Integer infoMusic;
-    private int nameMusic;
-    private String textColor;
-
-
-    public ViewModel(Integer image, Integer background, String name, Integer music, String textColor) {
-        this.image = image;
-        this.background = background;
-        this.name = name;
-        this.music = music;
-        this.capital = "";
-        this.small = "";
-        this.infoMusic = -1;
-        this.nameMusic = -1;
-        this.textColor = textColor;
+    constructor(image: Int?, background: Int?, name: String, music: Int, textColor: String?) {
+        this.image = image
+        this.background = background
+        this.name = name
+        this.music = music
+        capital = ""
+        small = ""
+        infoMusic = -1
+        nameMusic = -1
+        this.textColor = textColor
     }
 
-    public ViewModel(Integer background, String name, Integer music, String textColor) {
-        this.background = background;
-        this.name = name;
-        this.music = music;
-        this.capital = "";
-        this.small = "";
-        this.infoMusic = -1;
-        this.nameMusic = -1;
-        this.textColor = textColor;
+    constructor(background: Int?, name: String, music: Int, textColor: String?) {
+        this.background = background
+        this.name = name
+        this.music = music
+        capital = ""
+        small = ""
+        infoMusic = -1
+        nameMusic = -1
+        this.textColor = textColor
     }
 
-    public ViewModel(Integer image, String name, Integer music, String capital, String small, Integer infoMusic, int nameMusic) {
-        this.image = image;
-        this.name = name;
-        this.music = music;
-        this.capital = capital;
-        this.small = small;
-        this.infoMusic = infoMusic;
-        this.nameMusic = nameMusic;
+    constructor(image: Int?, name: String, music: Int, capital: String?, small: String?, infoMusic: Int, nameMusic: Int) {
+        this.image = image
+        this.name = name
+        this.music = music
+        this.capital = capital
+        this.small = small
+        this.infoMusic = infoMusic
+        this.nameMusic = nameMusic
     }
 
-    public ViewModel(Integer image, Integer background, String name, Integer music, String capital, String small, int infoMusic, String textColor) {
-        this.image = image;
-        this.background = background;
-        this.name = name;
-        this.music = music;
-        this.capital = capital;
-        this.small = small;
-        this.infoMusic = infoMusic;
-        this.nameMusic = -1;
-        this.textColor = textColor;
+    constructor(image: Int?, background: Int?, name: String, music: Int, capital: String?, small: String?, infoMusic: Int, textColor: String?) {
+        this.image = image
+        this.background = background
+        this.name = name
+        this.music = music
+        this.capital = capital
+        this.small = small
+        this.infoMusic = infoMusic
+        nameMusic = -1
+        this.textColor = textColor
     }
 
-    public ViewModel(Integer image, Integer background, String name, Integer music, int infoMusic, String textColor) {
-        this.image = image;
-        this.background = background;
-        this.textColor = textColor;
-        this.name = name;
-        this.music = music;
-        this.infoMusic = infoMusic;
+    constructor(image: Int?, background: Int?, name: String, music: Int, infoMusic: Int, textColor: String?) {
+        this.image = image
+        this.background = background
+        this.textColor = textColor
+        this.name = name
+        this.music = music
+        this.infoMusic = infoMusic
     }
 
-    public ViewModel(Integer image, String name, Integer music, int infoMusic) {
-        this.image = image;
-        this.name = name;
-        this.music = music;
-        this.capital = "";
-        this.small = "";
-        this.infoMusic = infoMusic;
-        this.nameMusic = -1;
-    }
-
-    public Integer getImage() {
-        return image;
-    }
-
-    public void setImage(Integer image) {
-        this.image = image;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getMusic() {
-        return music;
-    }
-
-    public void setMusic(Integer music) {
-        this.music = music;
-    }
-
-    public String getCapital() {
-        return capital;
-    }
-
-    public void setCapital(String capital) {
-        this.capital = capital;
-    }
-
-    public String getSmall() {
-        return small;
-    }
-
-    public void setSmall(String small) {
-        this.small = small;
-    }
-
-    public Integer getInfoMusic() {
-        return infoMusic;
-    }
-
-    public void setInfoMusic(Integer infoMusic) {
-        this.infoMusic = infoMusic;
-    }
-
-    public int getNameMusic() {
-        return nameMusic;
-    }
-
-    public void setNameMusic(int nameMusic) {
-        this.nameMusic = nameMusic;
-    }
-
-    public Integer getBackground() {
-        return background;
-    }
-
-    public void setBackground(Integer background) {
-        this.background = background;
-    }
-
-    public String getTextColor() {
-        return textColor;
-    }
-
-    public void setTextColor(String textColor) {
-        this.textColor = textColor;
+    constructor(image: Int?, name: String, music: Int, infoMusic: Int) {
+        this.image = image
+        this.name = name
+        this.music = music
+        capital = ""
+        small = ""
+        this.infoMusic = infoMusic
+        nameMusic = -1
     }
 }

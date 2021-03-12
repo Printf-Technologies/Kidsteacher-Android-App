@@ -1,4 +1,4 @@
-package com.printf.kidsteacher.myapplication;
+package com.printf.kidsteacher;
 
 import android.app.Application;
 import android.content.Context;

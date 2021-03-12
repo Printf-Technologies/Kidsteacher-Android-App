@@ -1,114 +1,78 @@
-package com.printf.kidsteacher.adapter;
+package com.printf.kidsteacher.adapter
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
-import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.animation.Animator
+import android.animation.ObjectAnimator
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.RecyclerView
+import com.printf.kidsteacher.R
+import com.printf.kidsteacher.been.ReadBeen
+import com.printf.kidsteacher.databinding.ItemCardBinding
+import com.printf.kidsteacher.other.Ease
+import com.printf.kidsteacher.other.EasingInterpolator
+import com.printf.kidsteacher.other.RecyclerViewClick
+import retrofit2.http.POST
+import java.util.*
 
-import com.printf.kidsteacher.R;
-import com.printf.kidsteacher.been.ReadBeen;
-import com.printf.kidsteacher.other.Ease;
-import com.printf.kidsteacher.other.EasingInterpolator;
-import com.printf.kidsteacher.other.RecylerViewClick;
+class ReadAdapter(var list: ArrayList<ReadBeen>, var recylerViewClick: RecyclerViewClick) :
+        RecyclerView.Adapter<ReadAdapter.MyViewHolder>() {
 
-import java.util.ArrayList;
+    var isOpened = false
 
-public class ReadAdapter extends RecyclerView.Adapter {
-    ArrayList<ReadBeen> list;
-    Context context;
-    RecylerViewClick recylerViewClick;
-    Animation animation;
-    boolean isOpened = false;
+    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ReadAdapter.MyViewHolder {
 
-    public ReadAdapter(Context context, ArrayList<ReadBeen> list, RecylerViewClick recylerViewClick) {
-        this.recylerViewClick = recylerViewClick;
-        this.context = context;
-        this.list = list;
+        val layoutInflater = LayoutInflater.from(viewGroup.context)
+        val binding = DataBindingUtil.inflate(
+                layoutInflater,
+                R.layout.item_card,
+                viewGroup,
+                false
+        ) as ItemCardBinding
+        return MyViewHolder(binding)
     }
 
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_card, viewGroup, false);
-        return new MyViewHolder(view);
+    override fun onBindViewHolder(viewHolder: ReadAdapter.MyViewHolder, i: Int) {
+
+        val dataModel = list[i]
+        viewHolder.bind(dataModel, i)
+
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        if (viewHolder instanceof MyViewHolder) {
-            MyViewHolder holder = (MyViewHolder) viewHolder;
-            ReadBeen item = list.get(i);
-            holder.tv_name.setText(item.getName());
-            holder.iv_img.setImageResource(item.getImg());
-        }
+    override fun getItemCount(): Int {
+        return list.size
     }
 
-    @Override
-    public int getItemCount() {
-        return list.size();
-    }
+    inner class MyViewHolder(var itemRowBinding: ItemCardBinding) : RecyclerView.ViewHolder(itemRowBinding.root) {
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView iv_img;
-        TextView tv_name;
+        fun bind(data: ReadBeen, position : Int) {
+            itemRowBinding.item = data
+            itemRowBinding.executePendingBindings()
 
-        public MyViewHolder(@NonNull final View itemView) {
-            super(itemView);
-            tv_name = itemView.findViewById(R.id.tv_name);
-            iv_img = itemView.findViewById(R.id.iv_img);
+            itemRowBinding.root.setOnClickListener {
+                if (isOpened) return@setOnClickListener
 
-            animation = AnimationUtils.loadAnimation(context, R.anim.bounce);
+                isOpened = true
+                val animator = ObjectAnimator.ofFloat(itemView, "translationY", 0f, 50f, 0f)
+                animator.interpolator = EasingInterpolator(Ease.BOUNCE_IN_OUT)
+                animator.startDelay = 0
+                animator.duration = 1500
+                animator.start()
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (isOpened)
-                        return;
-                    ObjectAnimator animator = ObjectAnimator.ofFloat(itemView, "translationY", 0, 50, 0);
-                    animator.setInterpolator(new EasingInterpolator(Ease.BOUNCE_IN_OUT));
-                    animator.setStartDelay(0);
-                    animator.setDuration(1500);
-                    animator.start();
-                    isOpened = true;
-                    animator.addListener(new Animator.AnimatorListener() {
-                        @Override
-                        public void onAnimationStart(Animator animator) {
+                animator.addListener(object : Animator.AnimatorListener {
+                    override fun onAnimationStart(animator: Animator) {}
+                    override fun onAnimationEnd(animator: Animator) {
+                        isOpened = false
+                        recylerViewClick.OnClick(data.img, data.name, position)
+                    }
 
-                        }
+                    override fun onAnimationCancel(animator: Animator) {
+                        isOpened = false
+                    }
 
-                        @Override
-                        public void onAnimationEnd(Animator animator) {
-
-                            if(getAdapterPosition() >= list.size())
-                                return;
-
-                            isOpened = false;
-//                            recylerViewClick.OnClick(list.get(getAdapterPosition()).getName());
-                            if(getAdapterPosition() >= 0)
-                                recylerViewClick.OnClick(list.get(getAdapterPosition()).getName());
-                        }
-
-                        @Override
-                        public void onAnimationCancel(Animator animator) {
-
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animator animator) {
-
-                        }
-                    });
-
-                }
-            });
+                    override fun onAnimationRepeat(animator: Animator) {}
+                })
+            }
         }
     }
 }
