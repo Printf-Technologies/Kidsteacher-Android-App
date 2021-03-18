@@ -45,7 +45,6 @@ import com.printf.kidsteacher.BaseActivity;
 import com.printf.kidsteacher.R;
 import com.printf.kidsteacher.adapter.ViewPagerAdapter;
 import com.printf.kidsteacher.been.ViewModel;
-import com.printf.kidsteacher.been.WriteBeen;
 import com.printf.kidsteacher.common.PrintfGlobal;
 import com.printf.kidsteacher.databinding.ActivityReadDetailBinding;
 import com.printf.kidsteacher.fragment.VideoFragment;
@@ -76,7 +75,6 @@ public class ReadDetailActivity extends BaseActivity implements View.OnClickList
     RelativeLayout rl_video, rl_read, rl_write;
     View view_video, view_read, view_write;
 
-
     private boolean isAutoSouffle = false;
     private boolean isSpeakerOn = true;
     int currentPage = 0;
@@ -95,7 +93,7 @@ public class ReadDetailActivity extends BaseActivity implements View.OnClickList
     LottieAnimationView animation_view;
 
     RelativeLayout rl_drawingview, rl_viewpager;
-    ArrayList<WriteBeen> list = new ArrayList<>();
+    //ArrayList<WriteBeen> list = new ArrayList<>();
 
     ImageView smallBtn;
     ImageView mediumBtn;
@@ -126,7 +124,7 @@ public class ReadDetailActivity extends BaseActivity implements View.OnClickList
         binding = DataBindingUtil.setContentView(this, R.layout.activity_read_detail);
         activity = ReadDetailActivity.this;
         AndroidNetworking.initialize(activity);
-        dialog = new Dialog(activity/*,R.style.PauseDialogAnimation*/);
+        dialog = new Dialog(activity);
         init();
     }
 
@@ -233,104 +231,104 @@ public class ReadDetailActivity extends BaseActivity implements View.OnClickList
                 title = getString(R.string.alphabets);
                 viewModels.clear();
                 viewModels.addAll(PrintfGlobal.getFromAlphabets());
-                list.clear();
-                list.addAll(PrintfGlobal.getAlphabet_());
+               /* list.clear();
+                list.addAll(PrintfGlobal.getAlphabet_());*/
             } else if (type.equalsIgnoreCase(getString(R.string.numbers))) {
                 title = getString(R.string.numbers);
                 viewModels.clear();
                 viewModels.addAll(PrintfGlobal.getFromNumbers());
-                list.clear();
-                list.addAll(PrintfGlobal.getFromNumbers_());
+                /*list.clear();
+                list.addAll(PrintfGlobal.getFromNumbers_());*/
             } else if (type.equalsIgnoreCase(getString(R.string.shapes))) {
                 title = getString(R.string.shapes);
                 viewModels.clear();
                 viewModels.addAll(PrintfGlobal.getFromShape());
-                list.clear();
-                list.addAll(PrintfGlobal.getFromShape_());
+                /*list.clear();
+                list.addAll(PrintfGlobal.getFromShape_());*/
             } else if (type.equalsIgnoreCase(getString(R.string.colors))) {
                 title = getString(R.string.colors);
                 viewModels.clear();
                 viewModels.addAll(PrintfGlobal.getFromColors());
-                list.clear();
-                list.addAll(PrintfGlobal.getFromColors_());
+               /* list.clear();
+                list.addAll(PrintfGlobal.getFromColors_());*/
             } else if (type.equalsIgnoreCase(getString(R.string.days))) {
                 title = getString(R.string.days);
                 viewModels.clear();
                 viewModels.addAll(PrintfGlobal.getFromDays());
-                list.clear();
-                list.addAll(PrintfGlobal.getFromDays_());
+                /*list.clear();
+                list.addAll(PrintfGlobal.getFromDays_());*/
             } else if (type.equalsIgnoreCase(getString(R.string.months))) {
                 title = getString(R.string.months);
                 viewModels.clear();
                 viewModels.addAll(PrintfGlobal.getFromMonths());
-                list.clear();
-                list.addAll(PrintfGlobal.getFromMonths_());
+               /* list.clear();
+                list.addAll(PrintfGlobal.getFromMonths_());*/
             } else if (type.equalsIgnoreCase(getString(R.string.animals))) {
                 title = getString(R.string.animals);
                 viewModels.clear();
                 viewModels.addAll(PrintfGlobal.getFromAnimals());
-                list.clear();
-                list.addAll(PrintfGlobal.getFromAnimals_());
+                /*list.clear();
+                list.addAll(PrintfGlobal.getFromAnimals_());*/
             } else if (type.equalsIgnoreCase(getString(R.string.body_parts))) {
                 title = getString(R.string.body_parts);
                 viewModels.clear();
                 viewModels.addAll(PrintfGlobal.getFromBodyParts());
-                list.clear();
-                list.addAll(PrintfGlobal.getFromBodyParts_());
+               /* list.clear();
+                list.addAll(PrintfGlobal.getFromBodyParts_());*/
             } else if (type.equalsIgnoreCase(getString(R.string.fruits))) {
                 title = getString(R.string.fruits);
                 viewModels.clear();
                 viewModels.addAll(PrintfGlobal.getFromFruits());
-                list.clear();
-                list.addAll(PrintfGlobal.getFromFruits_());
+               /* list.clear();
+                list.addAll(PrintfGlobal.getFromFruits_());*/
             } else if (type.equalsIgnoreCase(getString(R.string.transport))) {
                 title = getString(R.string.transport);
                 viewModels.clear();
                 viewModels.addAll(PrintfGlobal.getFromTransport());
-                list.clear();
-                list.addAll(PrintfGlobal.getFromTransport_());
+               /* list.clear();
+                list.addAll(PrintfGlobal.getFromTransport_());*/
             } else if (type.equalsIgnoreCase(getString(R.string.proffesion))) {
                 title = getString(R.string.proffesion);
                 viewModels.clear();
                 viewModels.addAll(PrintfGlobal.getFromProfession());
-                list.clear();
-                list.addAll(PrintfGlobal.getFromProfession_());
+               /* list.clear();
+                list.addAll(PrintfGlobal.getFromProfession_());*/
             } else if (type.equalsIgnoreCase(getString(R.string.sport))) {
                 title = getString(R.string.sport);
                 viewModels.clear();
                 viewModels.addAll(PrintfGlobal.getFromSports());
-                list.clear();
-                list.addAll(PrintfGlobal.getFromSports_());
+                /*list.clear();
+                list.addAll(PrintfGlobal.getFromSports_());*/
             } else if (type.equalsIgnoreCase(getString(R.string.bird))) {
                 title = getString(R.string.bird);
                 viewModels.clear();
                 viewModels.addAll(PrintfGlobal.getFromBirds());
-                list.clear();
-                list.addAll(PrintfGlobal.getFromBirds_());
+               /* list.clear();
+                list.addAll(PrintfGlobal.getFromBirds_());*/
             } else if (type.equalsIgnoreCase(getString(R.string.building))) {
                 title = getString(R.string.building);
                 viewModels.clear();
                 viewModels.addAll(PrintfGlobal.getFromBuilding());
-                list.clear();
-                list.addAll(PrintfGlobal.getFromBuilding_());
+                /*list.clear();
+                list.addAll(PrintfGlobal.getFromBuilding_());*/
             } else if (type.equalsIgnoreCase(getString(R.string.flower))) {
                 title = getString(R.string.flower);
                 viewModels.clear();
                 viewModels.addAll(PrintfGlobal.getFromFlower());
-                list.clear();
-                list.addAll(PrintfGlobal.getFromFlower_());
+                /*list.clear();
+                list.addAll(PrintfGlobal.getFromFlower_());*/
             } else if (type.equalsIgnoreCase(getString(R.string.fruit_tree))) {
                 title = getString(R.string.fruit_tree);
                 viewModels.clear();
                 viewModels.addAll(PrintfGlobal.getFromFruitTree());
-                list.clear();
-                list.addAll(PrintfGlobal.getFromFruitTree_());
+               /* list.clear();
+                list.addAll(PrintfGlobal.getFromFruitTree_());*/
             } else if (type.equalsIgnoreCase(getString(R.string.vegetable))) {
                 title = getString(R.string.vegetable);
                 viewModels.clear();
                 viewModels.addAll(PrintfGlobal.getFromVegetable());
-                list.clear();
-                list.addAll(PrintfGlobal.getFromVegetable_());
+                /*list.clear();
+                list.addAll(PrintfGlobal.getFromVegetable_());*/
             }
             tv_header.setText(title);
         }
@@ -347,7 +345,7 @@ public class ReadDetailActivity extends BaseActivity implements View.OnClickList
                 drawingView.clearCanvas();
                 drawingView.resetView();
 
-                Bitmap icon = BitmapFactory.decodeResource(activity.getResources(), list.get(currentPage).getImg());
+                Bitmap icon = BitmapFactory.decodeResource(activity.getResources(), viewModels.get(currentPage).getImage());
                 drawingView.setForeGroundBitmap(icon);
                 drawingView.setBackGroundBitmap(icon);
             }
@@ -437,11 +435,11 @@ public class ReadDetailActivity extends BaseActivity implements View.OnClickList
                 drawView = findViewById(R.id.drawing);
                 drawingView = findViewById(R.id.drawingView);
                 drawView.setBrushSize(mediumBrush);
-                drawView.setBitmap(activity, list.get(currentPage).getImg(), 0, 250);
+                drawView.setBitmap(activity, viewModels.get(currentPage).getImage(), 0, 250);
                 drawView.invalidate();
 
 
-                Bitmap icon = BitmapFactory.decodeResource(activity.getResources(), list.get(currentPage).getImg());
+                Bitmap icon = BitmapFactory.decodeResource(activity.getResources(), viewModels.get(currentPage).getImage());
                 //drawingView.clearCanvas();
                 drawingView.setForeGroundBitmap(icon);
                 drawingView.setBackGroundBitmap(icon);
@@ -515,7 +513,7 @@ public class ReadDetailActivity extends BaseActivity implements View.OnClickList
 
             @Override
             public boolean onRightSwipe() {
-                if (currentPage == list.size() - 1) {
+                if (currentPage == viewModels.size() - 1) {
                     if (dialog != null && !dialog.isShowing())
                         openDialog();
                 }
@@ -971,7 +969,7 @@ public class ReadDetailActivity extends BaseActivity implements View.OnClickList
                             }
                         }
                         animation_view.cancelAnimation();
-                        Log.e("TAG", "next = " + next);
+                        
                         Intent intent = new Intent(activity, ReadDetailActivity.class);
                         intent.putExtra("type", next);
                         startActivity(intent);

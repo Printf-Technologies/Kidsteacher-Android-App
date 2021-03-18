@@ -43,8 +43,8 @@ import com.google.android.gms.ads.AdView;
 import com.printf.kidsteacher.BaseActivity;
 import com.printf.kidsteacher.R;
 import com.printf.kidsteacher.adapter.ViewPagerAdapter;
+import com.printf.kidsteacher.been.ReadBeen;
 import com.printf.kidsteacher.been.ViewModel;
-import com.printf.kidsteacher.been.WriteBeen;
 import com.printf.kidsteacher.common.PrintfGlobal;
 import com.printf.kidsteacher.databinding.ActivityDrawingBinding;
 import com.printf.kidsteacher.fragment.VideoFragment;
@@ -91,7 +91,7 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
     LottieAnimationView animation_view;
 
     RelativeLayout rl_drawingview, rl_viewpager;
-    ArrayList<WriteBeen> list = new ArrayList<>();
+    ArrayList<ReadBeen> list = new ArrayList<>();
 
     ImageView smallBtn, mediumBtn, largeBtn;
 

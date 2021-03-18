@@ -1,62 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/_160sdp"
-    android:padding="@dimen/_10sdp"
-    android:id="@+id/ll_back">
+<layout>
+    <data>
+        <variable
+            name="item"
+            type="com.printf.kidsteacher.been.videoData.Datum" />
+    </data>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_100sdp"
-        app:cardCornerRadius="@dimen/_10sdp"
-        app:cardElevation="@dimen/_3sdp">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_100sdp"
-            android:background="@drawable/bg_video"
-            android:visibility="visible">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_120sdp"
-                android:layout_marginBottom="@dimen/_2sdp"
-                android:src="@drawable/app_logo"
-                android:id="@+id/iv_temp"
-                android:visibility="gone"/>
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_120sdp"
-                android:background="#80FFFFFF"
-                android:visibility="gone"
-                android:id="@+id/view"/>
-
-            <com.printf.kidsteacher.view.RoundRectCornerImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_120sdp"
-                android:id="@+id/iv_img"
-                android:src="@drawable/background_1"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_play_button"
-                android:layout_centerInParent="true" />
-
-        </RelativeLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <TextView
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ll_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/_16sdp"
-        android:id="@+id/tv_name" />
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp">
 
-</LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardElevation="@dimen/_3sdp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_100sdp"
+                android:background="@drawable/bg_video">
+
+                <com.printf.kidsteacher.view.RoundRectCornerImageView
+                    android:id="@+id/iv_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_120sdp"
+                    android:scaleType="centerCrop"
+                    app:loadImage="@{item.thumbnailUrl}"
+                    android:src="@drawable/background_1" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_play_button" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_16sdp"
+            android:textStyle="bold"
+            android:maxLines="2"
+            android:text="@{item.videoName}"
+            android:ellipsize="end"/>
+    </LinearLayout>
+</layout>

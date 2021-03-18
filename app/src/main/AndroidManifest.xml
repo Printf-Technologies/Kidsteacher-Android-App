@@ -31,17 +31,15 @@
             android:screenOrientation="landscape"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
 
-        <activity android:name=".activity.VideoActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTask"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
 
-        <activity android:name=".activity.WriteActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTask"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
+
 
         <activity android:name=".category.ReadActivity"
+            android:screenOrientation="landscape"
+            android:launchMode="singleTask"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+
+        <activity android:name=".subcategory.SubCategoryActivity"
             android:screenOrientation="landscape"
             android:launchMode="singleTask"
             android:configChanges="keyboardHidden|orientation|screenSize"/>

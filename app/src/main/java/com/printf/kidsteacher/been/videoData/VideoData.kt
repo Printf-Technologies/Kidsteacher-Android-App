@@ -11,5 +11,5 @@ class VideoData : Serializable {
 
     @SerializedName("Data")
     @Expose
-    var data: List<Datum>? = null
+    var data: ArrayList<Datum>? = null
 }

@@ -1,11 +1,9 @@
 package com.printf.kidsteacher.fragment
 
-import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -49,16 +47,16 @@ class VideoFragment : BaseFragment() {
 
             override fun onAnimationRepeat(animation: Animation) {}
         })
-        iv_refresh?.setOnClickListener(View.OnClickListener { iv_refresh?.startAnimation(animation) })
+        iv_refresh.setOnClickListener { iv_refresh?.startAnimation(animation) }
     }
 
     private fun callApi() {
-        if (!CheckInternet.networkAvailability(activity)) {
+        if (!CheckInternet.networkAvailability(requireContext())) {
             tv_message!!.text = "No internet connection. Please connect to internet and try again."
             ll_noInternet!!.visibility = View.VISIBLE
             return
         }
-        ApiCall.GetApi(true, false, activity, WebServices.VIDEO_API, object : ApiResponce {
+        ApiCall.GetApi(true, false, requireContext(), WebServices.VIDEO_API, object : ApiResponce {
             override fun Responce(responce: String) {
                 if (isVisible && isAdded) {
                     ll_noInternet!!.visibility = View.GONE
@@ -78,7 +76,7 @@ class VideoFragment : BaseFragment() {
     private fun setAdapter(videoData: VideoData?) {
         val gridLayoutManager = GridLayoutManager(getActivity(), 3)
         rv_video!!.layoutManager = gridLayoutManager
-        videoAdapter = VideoAdapter(getActivity(), videoData!!.data)
+        videoAdapter = VideoAdapter(requireContext(), videoData!!.data!!)
         rv_video!!.adapter = videoAdapter
     }
 
@@ -96,13 +94,5 @@ class VideoFragment : BaseFragment() {
         }
         //registering our receiver
         getActivity()!!.registerReceiver(mReceiver, intentFilter)
-    }
-
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser) {
-            val a: Activity? = getActivity()
-            if (a != null) a.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        }
     }
 }

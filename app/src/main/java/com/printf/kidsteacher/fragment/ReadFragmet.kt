@@ -52,14 +52,6 @@ class ReadFragmet : BaseFragment(), RecyclerViewClick {
         rv_read.adapter = ReadAdapter(list, this)
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser) {
-            val a: Activity? = getActivity()
-            if (a != null) a.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        }
-    }
-
     override fun OnClick(img: Int, name: String?, position: Int) {
         if (isVisible && isAdded) {
             val intent = Intent(requireActivity(), ReadDetailActivity::class.java)

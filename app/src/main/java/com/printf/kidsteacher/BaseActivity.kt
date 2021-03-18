@@ -15,24 +15,18 @@ open class BaseActivity : AppCompatActivity() {
     @JvmField
     var activity: BaseActivity? = null
     var mView: CatLoadingView? = null
-    var gson: Gson? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity = this
         mView = CatLoadingView()
         mView!!.setCanceledOnTouchOutside(false)
-        //mView.setBackgroundColor(Color.parseColor("#000000"));
-        gson = Gson()
     }
 
     companion object {
         @JvmStatic
         fun dpToPx(dp: Int): Int {
             return (dp * Resources.getSystem().displayMetrics.density).toInt()
-        }
-
-        fun pxToDp(px: Int): Int {
-            return (px / Resources.getSystem().displayMetrics.density).toInt()
         }
 
         @JvmStatic
