@@ -118,13 +118,15 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_drawing);
-        dialog = new Dialog(activity/*,R.style.PauseDialogAnimation*/);
+        dialog = new Dialog(this);
         init();
     }
 
     private void init() {
         MainActivity.IsBrush = false;
+
         Toast.makeText(this, "Drawing", Toast.LENGTH_LONG);
+
         ll_search_icon = findViewById(R.id.ll_search_icon);
         ll_search = findViewById(R.id.ll_search);
         iv_back = findViewById(R.id.iv_back);
@@ -169,6 +171,7 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
         mediumBtn.setOnClickListener(this);
         largeBtn.setOnClickListener(this);
         iv_picker.setOnClickListener(this);
+
         ll_repeat.setOnClickListener(this);
         ripple_repeat.setOnClickListener(this);
         ripple_sound.setOnClickListener(this);
@@ -458,35 +461,7 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
             }
         });
 
-        et_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    hideKeyboardFrom(activity, et_search, false);
-                    return true;
-                }
-                return false;
-            }
-        });
 
-        et_search.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Intent intetn = new Intent("android.intent.action.MAIN");
-                intetn.putExtra("Search", et_search.getText().toString());
-                activity.sendBroadcast(intetn);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
 
         animation = AnimationUtils.loadAnimation(activity, R.anim.bounce);
     }
@@ -497,7 +472,7 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void setAdapter(String title) {
-        viewPagerAdapter = new ViewPagerAdapter(this, viewModels, title, new OnListItemClick() {
+        viewPagerAdapter = new ViewPagerAdapter(this, new OnListItemClick() {
             @Override
             public void playThisMusic(Integer music) {
                 if (music != -1) {

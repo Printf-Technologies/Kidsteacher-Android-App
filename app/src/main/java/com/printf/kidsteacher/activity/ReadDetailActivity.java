@@ -480,7 +480,7 @@ public class ReadDetailActivity extends BaseActivity implements View.OnClickList
     }
 
     private void setAdapter(String title) {
-        viewPagerAdapter = new ViewPagerAdapter(this, viewModels, title, new OnListItemClick() {
+        viewPagerAdapter = new ViewPagerAdapter(this, new OnListItemClick() {
             @Override
             public void playThisMusic(Integer music) {
                 if (music != -1) {

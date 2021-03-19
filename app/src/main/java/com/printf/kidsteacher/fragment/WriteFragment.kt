@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.printf.kidsteacher.R
+import com.printf.kidsteacher.activity.DetailActivity
 import com.printf.kidsteacher.activity.DrawingActivity
-import com.printf.kidsteacher.activity.WriteDetailActivity
 import com.printf.kidsteacher.adapter.ReadAdapter
 import com.printf.kidsteacher.been.ReadBeen
 import com.printf.kidsteacher.common.PrintfGlobal
@@ -127,18 +127,13 @@ class WriteFragment : BaseFragment(), RecyclerViewClick {
                 startActivity(intent)
                 requireActivity().overridePendingTransition(R.anim.enter_left, R.anim.exit_right)
             } else {
-
-                val intent = Intent(activity, DrawingActivity::class.java)
-                intent.putExtra("type", name)
-                intent.putExtra("title", name)
-                intent.putExtra("position", position)
+                val intent = Intent(requireContext(), DetailActivity::class.java)
+                intent.putExtra("SubCategory", subCategory)
+                intent.putExtra("Position", position)
+                intent.putExtra("FragmentType", fragmentType)
                 startActivity(intent)
                 requireActivity().overridePendingTransition(R.anim.enter_left, R.anim.exit_right)
 
-                /*val intent = Intent(requireContext(), WriteDetailActivity::class.java)
-                intent.putExtra("type", name)
-                startActivity(intent)
-                requireActivity().overridePendingTransition(R.anim.enter_left, R.anim.exit_right)*/
             }
         }
     }
