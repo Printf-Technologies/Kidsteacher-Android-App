@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_40sdp"
+    android:background="@drawable/app_bg"
+    android:orientation="horizontal">
+
+    <!-- Back Button view  -->
+    <LinearLayout
+        android:id="@+id/llBackParent"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:gravity="center"
+        android:padding="@dimen/_10sdp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back_" />
+
+    </LinearLayout>
+
+    <!-- Tab  -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rl_video"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.printf.kidsteacher.view.CustomTextView
+                app:customText="@string/boldText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Video"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_18sdp" />
+
+            <View
+                android:id="@+id/view_video"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_2sdp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorWhite"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_read"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.printf.kidsteacher.view.CustomTextView
+                app:customText="@string/boldText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Read"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_18sdp" />
+
+            <View
+                android:id="@+id/view_read"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_2sdp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorWhite" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_write"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.printf.kidsteacher.view.CustomTextView
+                app:customText="@string/boldText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Write"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_18sdp" />
+
+            <View
+                android:id="@+id/view_write"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_2sdp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorWhite"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <!-- repeat sound  -->
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/ripple_repeat"
+        app:mrl_rippleAlpha="0.1"
+        app:mrl_rippleBackground="@android:color/transparent"
+        app:mrl_rippleColor="#50000000"
+        app:mrl_rippleDelayClick="true"
+        app:mrl_rippleDimension="10dp"
+        app:mrl_rippleDuration="350"
+        app:mrl_rippleFadeDuration="75"
+        app:mrl_rippleHover="true"
+        app:mrl_rippleOverlay="false"
+        app:mrl_ripplePersistent="false"
+        app:mrl_rippleRoundedCorners="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/ripple_sound"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/ll_repeat"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/_10sdp">
+
+            <ImageView
+                android:id="@+id/iv_replay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_replay" />
+
+        </LinearLayout>
+    </com.balysv.materialripple.MaterialRippleLayout>
+
+    <!-- Speaker -->
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/ripple_sound"
+        app:mrl_rippleAlpha="0.1"
+        app:mrl_rippleBackground="@android:color/transparent"
+        app:mrl_rippleColor="#50000000"
+        app:mrl_rippleDelayClick="true"
+        app:mrl_rippleDimension="10dp"
+        app:mrl_rippleDuration="350"
+        app:mrl_rippleFadeDuration="75"
+        app:mrl_rippleHover="true"
+        app:mrl_rippleOverlay="false"
+        app:mrl_ripplePersistent="false"
+        app:mrl_rippleRoundedCorners="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/_10sdp">
+
+            <ImageView
+                android:id="@+id/ivSpeaker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_aimg"
+                 />
+
+        </LinearLayout>
+
+    </com.balysv.materialripple.MaterialRippleLayout>
+
+
+    <!-- Search  -->
+    <LinearLayout
+        android:id="@+id/llSearchIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:padding="@dimen/_10sdp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llSearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_color"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/ivBackFromSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:padding="@dimen/_10sdp"
+            android:src="@drawable/ic_left_arrow" />
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:hint="Search here"
+            android:imeOptions="actionSearch"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite" />
+
+    </LinearLayout>
+
+</RelativeLayout>

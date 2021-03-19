@@ -8,8 +8,11 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.printf.kidsteacher.R
+import com.printf.kidsteacher.activity.DetailViewModel
 import com.printf.kidsteacher.adapter.ViewPagerAdapter
 import com.printf.kidsteacher.been.ViewModel
 import com.printf.kidsteacher.common.PrintfGlobal
@@ -18,13 +21,15 @@ import com.printf.kidsteacher.other.OnListItemClick
 import com.printf.kidsteacher.view.SwiperViewPager.SwiperListener
 import kotlinx.android.synthetic.main.fragment_read_detail.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ReadDetailFragment : BaseFragment(), View.OnClickListener, MediaPlayer.OnCompletionListener {
 
+    private lateinit var viewModel: DetailViewModel
     var viewModels = ArrayList<ViewModel>()
 
     private var isAutoSouffle = false
-    private val isSpeakerOn = true
+    private var isSpeakerOn = true
     var currentPage = 0
 
     private var mp: MediaPlayer? = null
@@ -40,6 +45,38 @@ class ReadDetailFragment : BaseFragment(), View.OnClickListener, MediaPlayer.OnC
     var reads: Array<String>? = null
 
     var completeDialog: CompleteDialog? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = activity?.run {
+            ViewModelProviders.of(this)[DetailViewModel::class.java]
+        } ?: throw Exception("Invalid Activity")
+
+        viewModel.repeatPlayObservable.observe(this, Observer<Boolean> { item ->
+            if (viewModels[currentPage].music != -1) {
+                stopAutoSouffle()
+                playMusic(viewModels[currentPage].music)
+            }
+        })
+
+        viewModel.isSpeakerOnObservable.observe(this, Observer<Boolean> { item ->
+            isSpeakerOn = item
+            if (isSpeakerOn == false) {
+                stopMusic()
+            }
+            if (isAutoSouffle && isSpeakerOn == false) {
+                callMuteinAutoSuffle()
+            } else {
+                if (timer != null) {
+                    timer!!.cancel()
+                    val runnable = Runnable { nextMusic() }
+                    handler = Handler()
+                    handler!!.postDelayed(runnable, 300)
+                }
+            }
+        })
+    }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_read_detail, container, false)
@@ -73,6 +110,10 @@ class ReadDetailFragment : BaseFragment(), View.OnClickListener, MediaPlayer.OnC
                         break
                     }
                 }
+
+                viewModel.setPosition(currentPage)
+                viewModel.setSubCategory(type)
+
                 startInit()
             }
 
@@ -88,6 +129,7 @@ class ReadDetailFragment : BaseFragment(), View.OnClickListener, MediaPlayer.OnC
                 currentPage--
             }
             viewPager.currentItem = currentPage
+            viewModel.setPosition(currentPage)
             stopAutoSouffle()
         }
         ivStarAutoSlide.setOnClickListener {
@@ -109,6 +151,7 @@ class ReadDetailFragment : BaseFragment(), View.OnClickListener, MediaPlayer.OnC
                 currentPage++
             }
             viewPager.currentItem = currentPage
+            viewModel.setPosition(currentPage)
             stopAutoSouffle()
         }
 
@@ -209,6 +252,7 @@ class ReadDetailFragment : BaseFragment(), View.OnClickListener, MediaPlayer.OnC
                     playMusic(viewModels[currentPage].music)
                     setProgress()
                 }
+                viewModel.setPosition(currentPage)
             }
 
             override fun onPageScrollStateChanged(state: Int) {}

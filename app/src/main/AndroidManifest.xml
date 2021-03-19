@@ -48,12 +48,11 @@
             android:screenOrientation="landscape"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
 
-        <activity android:name=".activity.WriteDetailActivity"
+        <activity android:name=".activity.DrawingActivity"
             android:screenOrientation="landscape"
-            android:launchMode="singleTask"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
 
-        <activity android:name=".activity.DrawingActivity"
+        <activity android:name=".activity.DetailActivity"
             android:screenOrientation="landscape"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
 

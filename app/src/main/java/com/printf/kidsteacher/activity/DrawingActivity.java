@@ -827,13 +827,9 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
         } else if (view == iv_end || view == ll_end || view == ripple_sound) {
             isSpeakerOn = !isSpeakerOn;
             if (isSpeakerOn) {
-                iv_end.setTag("yes");
-                //iv_end.setImageResource(R.drawable.ic_speaker_on);
                 iv_end.setImageResource(R.drawable.ic_aimg);
                 ll_repeat.setVisibility(View.VISIBLE);
             } else {
-                //iv_end.setImageResource(R.drawable.ic_speaker_off);
-                iv_end.setTag("no");
                 iv_end.setImageResource(R.drawable.ic_bimg);
                 ll_repeat.setVisibility(View.GONE);
                 stopMusic();

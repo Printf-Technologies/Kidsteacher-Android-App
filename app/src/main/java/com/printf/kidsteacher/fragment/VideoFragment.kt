@@ -5,14 +5,18 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.Gson
 import com.printf.kidsteacher.R
+import com.printf.kidsteacher.activity.DetailViewModel
 import com.printf.kidsteacher.adapter.VideoAdapter
 import com.printf.kidsteacher.been.videoData.VideoData
 import com.printf.kidsteacher.common.ApiCall
@@ -22,10 +26,25 @@ import com.printf.kidsteacher.common.WebServices
 import kotlinx.android.synthetic.main.fragment_video.*
 
 class VideoFragment : BaseFragment() {
-    private var mReceiver: BroadcastReceiver? = null
+
+    private lateinit var viewModel: DetailViewModel
+
+    //private var mReceiver: BroadcastReceiver? = null
     var videoAdapter: VideoAdapter? = null
     var videoData: VideoData? = null
     var animation: Animation? = null
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = activity?.run {
+            ViewModelProviders.of(this)[DetailViewModel::class.java]
+        } ?: throw Exception("Invalid Activity")
+
+        viewModel.searchObservable.observe(this, Observer<String> { search ->
+            videoAdapter!!.filter(search)
+        })
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_video, container, false)
@@ -82,7 +101,7 @@ class VideoFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        val intentFilter = IntentFilter("android.intent.action.MAIN")
+     /*   val intentFilter = IntentFilter("android.intent.action.MAIN")
         mReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 val tempSearchedText = intent.getStringExtra("Search")
@@ -93,6 +112,6 @@ class VideoFragment : BaseFragment() {
             }
         }
         //registering our receiver
-        getActivity()!!.registerReceiver(mReceiver, intentFilter)
+        getActivity()!!.registerReceiver(mReceiver, intentFilter)*/
     }
 }
