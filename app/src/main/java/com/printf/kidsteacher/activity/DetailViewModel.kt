@@ -1,9 +1,16 @@
 package com.printf.kidsteacher.activity
 
+import android.content.Intent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class DetailViewModel : ViewModel() {
+
+    var intentObservable = MutableLiveData<Intent>()
+    fun setIntent(intent: Intent){
+        intentObservable.value = intent
+    }
+
     var repeatPlayObservable = MutableLiveData<Boolean>()
     fun setRepeatPlay(isRepeatPlay: Boolean){
         repeatPlayObservable.value = isRepeatPlay

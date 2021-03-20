@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Video"
+                android:text="@string/txt_video"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_18sdp" />
 
@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Read"
+                android:text="@string/txt_read"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_18sdp" />
 
@@ -91,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Write"
+                android:text="@string/txt_write"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_18sdp" />
 

@@ -2,6 +2,7 @@ package com.printf.kidsteacher.mainactivity
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
+import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
@@ -14,10 +15,10 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
 import com.printf.kidsteacher.BaseActivity
+import com.printf.kidsteacher.PrintfAdActivity
 import com.printf.kidsteacher.R
-import com.printf.kidsteacher.category.ReadActivity
-import com.printf.kidsteacher.adapter.MainAdapter
 import com.printf.kidsteacher.been.MainBeen
+import com.printf.kidsteacher.category.CategoryActivity
 import com.printf.kidsteacher.common.*
 import com.printf.kidsteacher.databinding.ActivityMainBinding
 import com.printf.kidsteacher.other.Ease
@@ -25,33 +26,31 @@ import com.printf.kidsteacher.other.EasingInterpolator
 import com.printf.kidsteacher.other.Helper
 import com.printf.kidsteacher.other.RecyclerViewClick
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.toolbar.*
-import org.json.JSONObject
 import java.util.*
 
 class MainActivity : BaseActivity(), RecyclerViewClick {
 
     var binding: ActivityMainBinding? = null
     var adRequest: AdRequest? = null
+    private var openCategoryIntent : Intent ?= null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        PrintfGlobal.countryCode = PreferenceSession.getUserSession(this, "country_code")
-        GetAndSaveUserCountryCode()
+        PrintfGlobal.countryCode = PreferencesManager.instance(this).getGEOLocation();
         init()
 
         var testDeviceIds = listOf("88006378043BFA148015652F08E56307")
         var configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build()
         MobileAds.setRequestConfiguration(configuration)
         MobileAds.initialize(this) { }
-
+        openCategoryIntent = Intent(this, CategoryActivity::class.java)
+        openAdScreen("Open")
     }
 
     private fun init() {
-        ll_end.visibility = View.GONE
-        ll_start.visibility = View.GONE
 
         adRequest = AdRequest.Builder().build()
         adView.visibility = View.GONE
@@ -97,50 +96,27 @@ class MainActivity : BaseActivity(), RecyclerViewClick {
                 override fun onAnimationRepeat(animator: Animator) {}
             })
         })
-        callApi()
+        showAds()
     }
 
-    private fun callApi() {
-        if (!CheckInternet.networkAvailability(this)) {
+    private fun showAds() {
+        if (PreferencesManager.instance(this).isShowBannerAd()) {
+            adView!!.visibility = View.VISIBLE
+            adView!!.loadAd(adRequest)
             val layoutParams1 = ll_share!!.layoutParams as RelativeLayout.LayoutParams
-            layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
-            layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_END)
+            layoutParams1.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+            layoutParams1.addRule(RelativeLayout.ABOVE, R.id.adView)
             ll_share!!.layoutParams = layoutParams1
-            return
+        } else {
+            val layoutParams1 = ll_share!!.layoutParams as RelativeLayout.LayoutParams
+            layoutParams1.removeRule(RelativeLayout.ALIGN_TOP)
+            layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+            ll_share!!.layoutParams = layoutParams1
+            adView!!.visibility = View.GONE
+            Helper.remove_width = dpToPx(114)
+            Helper.remove_hight = resources.getDimension(R.dimen._40sdp).toInt() //dpToPx(40);//150;
+            Helper.getDeviceHightWidth(this@MainActivity)
         }
-        val layoutParams1 = ll_share!!.layoutParams as RelativeLayout.LayoutParams
-        layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
-        layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_END)
-        ApiCall.GetApi(false, false, this, WebServices.ADMOB_API, object : ApiResponce {
-            override fun Responce(responce: String) {
-                try {
-                    val jsonObject = JSONObject(responce)
-                    if (jsonObject.has("Data") && !jsonObject.getString("Data").equals("", ignoreCase = true)) {
-                        showAd = jsonObject.getString("Data")
-                        if (showAd.equals("1", ignoreCase = true)) {
-                            adView!!.visibility = View.VISIBLE
-                            adView!!.loadAd(adRequest)
-                            val layoutParams1 = ll_share!!.layoutParams as RelativeLayout.LayoutParams
-                            layoutParams1.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
-                            layoutParams1.addRule(RelativeLayout.ABOVE, R.id.adView)
-                            ll_share!!.layoutParams = layoutParams1
-                        } else {
-                            val layoutParams1 = ll_share!!.layoutParams as RelativeLayout.LayoutParams
-                            layoutParams1.removeRule(RelativeLayout.ALIGN_TOP)
-                            layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
-                            ll_share!!.layoutParams = layoutParams1
-                            adView!!.visibility = View.GONE
-                            Helper.remove_width = dpToPx(114)
-                            Helper.remove_hight = resources.getDimension(R.dimen._40sdp).toInt() //dpToPx(40);//150;
-                            Helper.getDeviceHightWidth(this@MainActivity)
-                        }
-                    }
-                } catch (e: Exception) {
-                }
-            }
-
-            override fun Error(error: String) {}
-        })
     }
 
     private fun setAdapter() {
@@ -151,28 +127,6 @@ class MainActivity : BaseActivity(), RecyclerViewClick {
         val gridLayoutManager = GridLayoutManager(this, 3)
         rv_main.layoutManager = gridLayoutManager
         rv_main.adapter = MainAdapter(list, this)
-    }
-
-
-
-    private fun GetAndSaveUserCountryCode() {
-        if (!CheckInternet.networkAvailability(this)) {
-            return
-        }
-        ApiCall.GetApi(false, false, this, WebServices.LOCATION_API, object : ApiResponce {
-            override fun Responce(response: String) {
-                try {
-                    val jsonObject = JSONObject(response)
-                    if (jsonObject.has("Data") && !jsonObject.getString("Data").equals("", ignoreCase = true)) {
-                        PrintfGlobal.countryCode = jsonObject.getString("Data")
-                        PreferenceSession.saveUserSession(this@MainActivity, "country_code", PrintfGlobal.countryCode)
-                    }
-                } catch (e: Exception) {
-                }
-            }
-
-            override fun Error(error: String) {}
-        })
     }
 
     override fun onBackPressed() {
@@ -205,15 +159,38 @@ class MainActivity : BaseActivity(), RecyclerViewClick {
     companion object {
         @JvmField
         var IsBrush = false
-
-        @JvmField
-        var showAd = "0"
     }
 
     override fun OnClick(img: Int, name: String?, position: Int) {
-        val intent = Intent(this, ReadActivity::class.java)
-        intent.putExtra("FragmentName", name)
-        startActivity(intent)
-        overridePendingTransition(R.anim.enter_left, R.anim.exit_right)
+        openCategoryIntent?.putExtra("FragmentName", name)
+        openAdScreen("Close")
+    }
+
+    private fun openAdScreen(action: String) {
+        var preferencesManager = PreferencesManager.instance(this)
+        var adActivity = Intent(this, PrintfAdActivity::class.java)
+
+        if (action.equals("Open")) {
+            adActivity.putExtra("InterAd", preferencesManager.isShowInterAdHomeScreenOnOpen())
+            adActivity.putExtra("InterAdVideo", preferencesManager.isShowVideoAdHomeScreenOnOpen())
+            startActivityForResult(adActivity, 2021)
+        } else {
+            adActivity.putExtra("InterAd", preferencesManager.isShowInterAdHomeScreenOnClose())
+            adActivity.putExtra("InterAdVideo", preferencesManager.isShowVideoAdHomeScreenOnClose())
+            startActivityForResult(adActivity, 2022)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == 2021) {
+            }
+
+            if (requestCode == 2022) {
+                startActivity(openCategoryIntent)
+                overridePendingTransition(R.anim.enter_left, R.anim.exit_right)
+            }
+        }
     }
 }

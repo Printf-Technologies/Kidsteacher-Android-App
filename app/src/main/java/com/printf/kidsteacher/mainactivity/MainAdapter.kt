@@ -1,4 +1,4 @@
-package com.printf.kidsteacher.adapter
+package com.printf.kidsteacher.mainactivity
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
@@ -18,7 +18,7 @@ class MainAdapter(var list: ArrayList<MainBeen>, var recyclerViewClick: Recycler
         RecyclerView.Adapter<MainAdapter.MyViewHolder>() {
     var isOpened = false
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MainAdapter.MyViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MyViewHolder {
         val layoutInflater = LayoutInflater.from(viewGroup.context)
         val binding = DataBindingUtil.inflate(
                 layoutInflater,
@@ -29,7 +29,7 @@ class MainAdapter(var list: ArrayList<MainBeen>, var recyclerViewClick: Recycler
         return MyViewHolder(binding)
     }
 
-    override fun onBindViewHolder(viewHolder: MainAdapter.MyViewHolder, i: Int) {
+    override fun onBindViewHolder(viewHolder: MyViewHolder, i: Int) {
         val dataModel = list[i]
         viewHolder.bind(dataModel, i)
     }

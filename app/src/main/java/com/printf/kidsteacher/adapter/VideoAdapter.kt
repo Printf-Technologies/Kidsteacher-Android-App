@@ -16,11 +16,12 @@ import com.printf.kidsteacher.been.videoData.Datum
 import com.printf.kidsteacher.databinding.ItemVideoBinding
 import com.printf.kidsteacher.other.Ease
 import com.printf.kidsteacher.other.EasingInterpolator
+import com.printf.kidsteacher.other.RecyclerViewClick
 import java.io.Serializable
 import java.util.*
 import kotlin.collections.ArrayList
 
-class VideoAdapter(var context: Context, var list: ArrayList<Datum>) :
+class VideoAdapter(var context: Context, var list: ArrayList<Datum>, var recylerViewClick: RecyclerViewClick) :
         RecyclerView.Adapter<VideoAdapter.MyViewHolder>() {
     var arraylist: ArrayList<Datum> = ArrayList()
     var isOpened = false
@@ -79,13 +80,7 @@ class VideoAdapter(var context: Context, var list: ArrayList<Datum>) :
                     override fun onAnimationStart(animator: Animator) {}
                     override fun onAnimationEnd(animator: Animator) {
                         isOpened = false
-                        val intent = Intent(context, VideoDetailActivity::class.java)
-                        val bundle = Bundle()
-                        bundle.putSerializable("list", list as Serializable)
-                        bundle.putInt("position", position)
-                        intent.putExtra("list", bundle)
-                        context.startActivity(intent)
-                        (context as Activity).overridePendingTransition(R.anim.enter_left, R.anim.exit_right)
+                        recylerViewClick.OnClick(0, "", position)
                     }
 
                     override fun onAnimationCancel(animator: Animator) {

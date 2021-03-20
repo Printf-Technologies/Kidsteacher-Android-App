@@ -3,7 +3,7 @@ package com.printf.kidsteacher
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 
 class DataBindingUtils {
 
@@ -18,7 +18,7 @@ class DataBindingUtils {
         @JvmStatic
         @BindingAdapter("app:loadImage")
         fun loadImage(imageView: ImageView, url: String) {
-            Picasso.with(imageView.context).load(url).into(imageView)
+            Glide.with(imageView.context).load(url).into(imageView)
         }
 
     }

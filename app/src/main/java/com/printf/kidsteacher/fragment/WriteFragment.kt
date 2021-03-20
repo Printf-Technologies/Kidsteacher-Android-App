@@ -2,13 +2,15 @@ package com.printf.kidsteacher.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.printf.kidsteacher.R
 import com.printf.kidsteacher.activity.DetailActivity
-import com.printf.kidsteacher.activity.DrawingActivity
+import com.printf.kidsteacher.activity.DetailViewModel
 import com.printf.kidsteacher.adapter.ReadAdapter
 import com.printf.kidsteacher.been.ReadBeen
 import com.printf.kidsteacher.common.PrintfGlobal
@@ -22,6 +24,15 @@ class WriteFragment : BaseFragment(), RecyclerViewClick {
     var mainCategory = ""
     var subCategory = ""
     var fragmentType = ""
+    private lateinit var viewModel: DetailViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = activity?.run {
+            ViewModelProviders.of(this)[DetailViewModel::class.java]
+        } ?: throw Exception("Invalid Activity")
+
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_write, container, false)
@@ -124,16 +135,14 @@ class WriteFragment : BaseFragment(), RecyclerViewClick {
                 intent.putExtra("MainCategory", mainCategory)
                 intent.putExtra("SubCategory", name)
                 intent.putExtra("FragmentType", fragmentType)
-                startActivity(intent)
-                requireActivity().overridePendingTransition(R.anim.enter_left, R.anim.exit_right)
+
+                viewModel.setIntent(intent)
             } else {
                 val intent = Intent(requireContext(), DetailActivity::class.java)
                 intent.putExtra("SubCategory", subCategory)
                 intent.putExtra("Position", position)
                 intent.putExtra("FragmentType", fragmentType)
-                startActivity(intent)
-                requireActivity().overridePendingTransition(R.anim.enter_left, R.anim.exit_right)
-
+                viewModel.setIntent(intent)
             }
         }
     }

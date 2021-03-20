@@ -2,6 +2,8 @@ package com.printf.kidsteacher.category
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,24 +12,29 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.ads.AdRequest
 import com.printf.kidsteacher.BaseActivity
+import com.printf.kidsteacher.PrintfAdActivity
 import com.printf.kidsteacher.R
 import com.printf.kidsteacher.activity.DetailViewModel
+import com.printf.kidsteacher.common.PreferencesManager
 import com.printf.kidsteacher.databinding.ActivitySubCategoryBinding
 import com.printf.kidsteacher.fragment.VideoFragment
 import com.printf.kidsteacher.fragment.WriteFragment
 import com.printf.kidsteacher.mainactivity.MainActivity
+import com.printf.kidsteacher.subcategory.SubCategoryActivity
 import kotlinx.android.synthetic.main.activity_sub_category.*
 import kotlinx.android.synthetic.main.custom_header.*
 
 
-class ReadActivity : BaseActivity() {
+class CategoryActivity : BaseActivity() {
     var binding: ActivitySubCategoryBinding? = null
 
     var fragmentName = ""
     private lateinit var viewModel: DetailViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +45,7 @@ class ReadActivity : BaseActivity() {
             onBackPressed()
         }
         val adRequest = AdRequest.Builder().build()
-        if (MainActivity.showAd.equals("1", ignoreCase = true)) {
+        if (PreferencesManager.instance(this).isShowBannerAd()) {
             mAdView.loadAd(adRequest)
         } else {
             mAdView.visibility = View.GONE
@@ -96,7 +103,7 @@ class ReadActivity : BaseActivity() {
                     super.onAnimationEnd(animation)
                     llSearch.visibility = View.VISIBLE
                     llSearch.requestFocus()
-                    hideKeyboardFrom(activity!!, etSearch, true)
+                    hideKeyboardFrom(this@CategoryActivity, etSearch, true)
                 }
             })
         }
@@ -106,7 +113,7 @@ class ReadActivity : BaseActivity() {
                 override fun onAnimationEnd(animation: Animator) {
                     super.onAnimationEnd(animation)
                     llSearch.visibility = View.GONE
-                    hideKeyboardFrom(activity!!, etSearch, false)
+                    hideKeyboardFrom(this@CategoryActivity, etSearch, false)
                 }
             })
         }
@@ -123,7 +130,7 @@ class ReadActivity : BaseActivity() {
         })
         etSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                hideKeyboardFrom(activity!!, etSearch, false)
+                hideKeyboardFrom(this@CategoryActivity, etSearch, false)
                 return@OnEditorActionListener true
             }
             false
@@ -138,10 +145,16 @@ class ReadActivity : BaseActivity() {
         } else if (fragmentName.equals("video", ignoreCase = true)) {
             rl_video.performClick()
         }
+
+        openAdScreen("Open")
+
+        viewModel.intentObservable.observe(this, Observer<Intent> { openIntent ->
+            openAdScreen("Close")
+        })
     }
 
     private fun replaceFragment(fragment: Fragment, fragmentTag: String) {
-        val fragmentManager = activity?.supportFragmentManager
+        val fragmentManager = this.supportFragmentManager
         val ft = fragmentManager?.beginTransaction()
         ft?.replace(R.id.frameLayout, fragment, fragmentTag)
         ft?.commit()
@@ -172,5 +185,32 @@ class ReadActivity : BaseActivity() {
             mAdView!!.destroy()
         }
         super.onDestroy()
+    }
+
+    private fun openAdScreen(action: String) {
+        var preferencesManager = PreferencesManager.instance(this)
+        var adActivity = Intent(this, PrintfAdActivity::class.java)
+
+        if (action.equals("Open")) {
+            adActivity.putExtra("InterAd", preferencesManager.isShowInterAdCategoryScreenOnOpen())
+            adActivity.putExtra("InterAdVideo", preferencesManager.isShowVideoAdCategoryScreenOnOpen())
+            startActivityForResult(adActivity, 2021)
+        } else {
+            adActivity.putExtra("InterAd", preferencesManager.isShowInterAdCategoryScreenOnClose())
+            adActivity.putExtra("InterAdVideo", preferencesManager.isShowVideoAdCategoryScreenOnClose())
+            startActivityForResult(adActivity, 2022)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == 2021) {
+            }
+            if (requestCode == 2022) {
+                startActivity(viewModel.intentObservable.value)
+                overridePendingTransition(R.anim.enter_left, R.anim.exit_right)
+            }
+        }
     }
 }

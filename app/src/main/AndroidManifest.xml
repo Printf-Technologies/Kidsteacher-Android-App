@@ -19,7 +19,7 @@
 
         <uses-library android:name="org.apache.http.legacy" android:required="false" />
 
-        <activity android:name=".mainactivity.MainActivity"
+        <activity android:name=".splash.SplashActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,14 +27,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".BaseActivity"
+        <activity android:name=".mainactivity.MainActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="landscape"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
 
-
-
-
-        <activity android:name=".category.ReadActivity"
+        <activity android:name=".category.CategoryActivity"
             android:screenOrientation="landscape"
             android:launchMode="singleTask"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
@@ -44,13 +42,6 @@
             android:launchMode="singleTask"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
 
-        <activity android:name=".activity.ReadDetailActivity"
-            android:screenOrientation="landscape"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
-
-        <activity android:name=".activity.DrawingActivity"
-            android:screenOrientation="landscape"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
 
         <activity android:name=".activity.DetailActivity"
             android:screenOrientation="landscape"
@@ -58,6 +49,11 @@
 
         <activity android:name=".activity.VideoDetailActivity"
             android:screenOrientation="landscape"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+
+        <activity android:name=".PrintfAdActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.Transparent"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
 
         <meta-data

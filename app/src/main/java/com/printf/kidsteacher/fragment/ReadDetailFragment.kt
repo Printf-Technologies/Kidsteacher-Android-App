@@ -66,14 +66,7 @@ class ReadDetailFragment : BaseFragment(), View.OnClickListener, MediaPlayer.OnC
             }
             if (isAutoSouffle && isSpeakerOn == false) {
                 callMuteinAutoSuffle()
-            } else {
-                if (timer != null) {
-                    timer!!.cancel()
-                    val runnable = Runnable { nextMusic() }
-                    handler = Handler()
-                    handler!!.postDelayed(runnable, 300)
-                }
-            }
+            } 
         })
     }
 

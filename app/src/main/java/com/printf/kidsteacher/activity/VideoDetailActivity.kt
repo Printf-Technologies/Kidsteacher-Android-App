@@ -14,6 +14,7 @@ import com.google.android.gms.ads.AdRequest
 import com.printf.kidsteacher.BaseActivity
 import com.printf.kidsteacher.R
 import com.printf.kidsteacher.been.videoData.Datum
+import com.printf.kidsteacher.common.PreferencesManager
 import com.printf.kidsteacher.databinding.ActivityVideoDetailBinding
 import com.printf.kidsteacher.mainactivity.MainActivity
 import kotlinx.android.synthetic.main.activity_video_detail.*
@@ -40,7 +41,7 @@ class VideoDetailActivity : BaseActivity() {
         playerView.requestFocus()
 
         val adRequest = AdRequest.Builder().build()
-        if (MainActivity.showAd.equals("1", ignoreCase = true)) {
+        if (PreferencesManager.instance(this).isShowBannerAd()) {
             mAdView.loadAd(adRequest)
         } else {
             mAdView.visibility = View.GONE
