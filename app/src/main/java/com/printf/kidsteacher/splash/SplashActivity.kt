@@ -42,7 +42,7 @@ class SplashActivity : BaseActivity(), LifecycleObserver {
     }
 
     private fun setupObservers() {
-        splashViewModel.dataObservable?.observe(this, Observer {
+        splashViewModel.dataObservable.observe(this, Observer {
             if (it.status!!) {
 
                 var preferencesManager = PreferencesManager.instance(this)
@@ -94,6 +94,12 @@ class SplashActivity : BaseActivity(), LifecycleObserver {
                     }
                 }
             }
+            mDelayHandler = Handler()
+            mDelayHandler!!.postDelayed(mRunnable, SPLASH_DELAY)
+        })
+
+
+        splashViewModel.errorObservable.observe(this, Observer {
             mDelayHandler = Handler()
             mDelayHandler!!.postDelayed(mRunnable, SPLASH_DELAY)
         })
