@@ -124,7 +124,7 @@ class WriteFragment : BaseFragment(), RecyclerViewClick {
 
         val gridLayoutManager = GridLayoutManager(requireContext(), 4)
         rv_write.layoutManager = gridLayoutManager
-        rv_write.adapter = ReadAdapter(list, this)
+        rv_write.adapter = ReadAdapter(list, this, subCategory.isNotEmpty())
     }
 
 

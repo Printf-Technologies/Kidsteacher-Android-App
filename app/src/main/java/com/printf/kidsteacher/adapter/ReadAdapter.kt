@@ -15,7 +15,7 @@ import com.printf.kidsteacher.other.RecyclerViewClick
 import retrofit2.http.POST
 import java.util.*
 
-class ReadAdapter(var list: ArrayList<ReadBeen>, var recylerViewClick: RecyclerViewClick) :
+class ReadAdapter(var list: ArrayList<ReadBeen>, var recylerViewClick: RecyclerViewClick, var isShowBorder : Boolean = false) :
         RecyclerView.Adapter<ReadAdapter.MyViewHolder>() {
 
     var isOpened = false
@@ -46,6 +46,12 @@ class ReadAdapter(var list: ArrayList<ReadBeen>, var recylerViewClick: RecyclerV
     inner class MyViewHolder(var itemRowBinding: ItemCardBinding) : RecyclerView.ViewHolder(itemRowBinding.root) {
 
         fun bind(data: ReadBeen, position : Int) {
+
+            if(isShowBorder)
+                itemRowBinding.llImageParent.setBackgroundResource(R.drawable.border)
+
+
+
             itemRowBinding.item = data
             itemRowBinding.executePendingBindings()
 
@@ -62,7 +68,7 @@ class ReadAdapter(var list: ArrayList<ReadBeen>, var recylerViewClick: RecyclerV
                 animator.addListener(object : Animator.AnimatorListener {
                     override fun onAnimationStart(animator: Animator) {}
                     override fun onAnimationEnd(animator: Animator) {
-                        isOpened = false
+                        //isOpened = false
                         recylerViewClick.OnClick(data.img, data.name, position)
                     }
 

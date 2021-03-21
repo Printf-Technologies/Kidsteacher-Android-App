@@ -1,7 +1,6 @@
 package com.printf.kidsteacher
 
 import android.os.Bundle
-import android.util.Log
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
@@ -25,16 +24,14 @@ class PrintfAdActivity : BaseActivity() {
             var isNoAdsToShow = true
 
             intent.extras.let {
-                if (it?.getBoolean("InterAd")!!) {
-                    isNoAdsToShow = false
-                    interstitialAds()
-                }
                 if (it?.getBoolean("InterAdVideo")!!) {
                     isNoAdsToShow = false
                     interstitialVideoAds()
+                } else if (it?.getBoolean("InterAd")!!) {
+                    isNoAdsToShow = false
+                    interstitialAds()
                 }
             }
-
             if (isNoAdsToShow)
                 navigateScreen()
         }
@@ -42,65 +39,85 @@ class PrintfAdActivity : BaseActivity() {
 
     private fun interstitialAds() {
         InterstitialAd.load(
-            this,
-            getString(R.string.interstitial_text_image_ads_unit),
-            AdRequest.Builder().build(),
-            object : InterstitialAdLoadCallback() {
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    navigateScreen()
-                }
+                this,
+                getString(R.string.interstitial_text_image_ads_unit),
+                AdRequest.Builder().build(),
+                object : InterstitialAdLoadCallback() {
+                    override fun onAdFailedToLoad(adError: LoadAdError) {
+                        navigateScreen()
+                    }
 
-                override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                    mInterstitialAd = interstitialAd
-                    interstitialAd?.fullScreenContentCallback =
-                        object : FullScreenContentCallback() {
-                            override fun onAdDismissedFullScreenContent() {
-                                navigateScreen()
-                            }
+                    override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                        mInterstitialAd = interstitialAd
+                        interstitialAd?.fullScreenContentCallback =
+                                object : FullScreenContentCallback() {
+                                    override fun onAdDismissedFullScreenContent() {
+                                        navigateScreen()
+                                    }
 
-                            override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
-                                navigateScreen()
-                            }
+                                    override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                                        navigateScreen()
+                                    }
 
-                            override fun onAdShowedFullScreenContent() {
-                                adCount++;
-                            }
-                        }
+                                    override fun onAdShowedFullScreenContent() {
+                                        adCount++;
+                                    }
+                                }
 
-                    interstitialAd.show(this@PrintfAdActivity)
-                }
-            })
+                        interstitialAd.show(this@PrintfAdActivity)
+                    }
+                })
     }
 
     private fun interstitialVideoAds() {
         InterstitialAd.load(
-            this,
+                this,
                 getString(R.string.interstitial_video_ads_unit),
-            AdRequest.Builder().build(),
-            object : InterstitialAdLoadCallback() {
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    navigateScreen()
-                }
+                AdRequest.Builder().build(),
+                object : InterstitialAdLoadCallback() {
+                    override fun onAdFailedToLoad(adError: LoadAdError) {
+                        navigateScreen()
+                    }
 
-                override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                    interstitialAd?.fullScreenContentCallback =
-                        object : FullScreenContentCallback() {
-                            override fun onAdDismissedFullScreenContent() {
-                                navigateScreen()
-                            }
+                    override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                        interstitialAd?.fullScreenContentCallback =
+                                object : FullScreenContentCallback() {
+                                    override fun onAdDismissedFullScreenContent() {
+                                        var isNoAdsToShow = true
+                                        intent.extras.let {
+                                            if (it?.getBoolean("InterAd")!!) {
+                                                isNoAdsToShow = false
+                                                interstitialAds()
+                                            }
+                                        }
+                                        if (isNoAdsToShow)
+                                            navigateScreen()
+                                        else
+                                            adCount--
+                                    }
 
-                            override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
-                                navigateScreen()
-                            }
+                                    override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                                        var isNoAdsToShow = true
+                                        intent.extras.let {
+                                            if (it?.getBoolean("InterAd")!!) {
+                                                isNoAdsToShow = false
+                                                interstitialAds()
+                                            }
+                                        }
+                                        if (isNoAdsToShow)
+                                            navigateScreen()
+                                        else
+                                            adCount--
+                                    }
 
-                            override fun onAdShowedFullScreenContent() {
-                                adCount++;
-                            }
-                        }
+                                    override fun onAdShowedFullScreenContent() {
+                                        adCount++;
+                                    }
+                                }
 
-                    interstitialAd.show(this@PrintfAdActivity)
-                }
-            })
+                        interstitialAd.show(this@PrintfAdActivity)
+                    }
+                })
     }
 
 

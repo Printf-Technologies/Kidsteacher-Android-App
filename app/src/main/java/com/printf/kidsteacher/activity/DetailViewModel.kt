@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class DetailViewModel : ViewModel() {
 
     var intentObservable = MutableLiveData<Intent>()
-    fun setIntent(intent: Intent){
+    fun setIntent(intent: Intent?){
         intentObservable.value = intent
     }
 

@@ -23,8 +23,6 @@ import com.printf.kidsteacher.common.PreferencesManager
 import com.printf.kidsteacher.databinding.ActivitySubCategoryBinding
 import com.printf.kidsteacher.fragment.VideoFragment
 import com.printf.kidsteacher.fragment.WriteFragment
-import com.printf.kidsteacher.mainactivity.MainActivity
-import com.printf.kidsteacher.subcategory.SubCategoryActivity
 import kotlinx.android.synthetic.main.activity_sub_category.*
 import kotlinx.android.synthetic.main.custom_header.*
 
@@ -41,7 +39,7 @@ class CategoryActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sub_category)
         viewModel = ViewModelProviders.of(this)[DetailViewModel::class.java]
 
-        llBackParent.setOnClickListener{
+        llBackParent.setOnClickListener {
             onBackPressed()
         }
         val adRequest = AdRequest.Builder().build()
@@ -161,9 +159,7 @@ class CategoryActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        overridePendingTransition(R.anim.enter_right, R.anim.exit_left)
-        finish()
+        viewModel.setIntent(null)
     }
 
     public override fun onPause() {
@@ -208,8 +204,13 @@ class CategoryActivity : BaseActivity() {
             if (requestCode == 2021) {
             }
             if (requestCode == 2022) {
-                startActivity(viewModel.intentObservable.value)
-                overridePendingTransition(R.anim.enter_left, R.anim.exit_right)
+                if (viewModel.intentObservable.value == null) {
+                    overridePendingTransition(R.anim.enter_right, R.anim.exit_left)
+                    finish()
+                } else {
+                    startActivity(viewModel.intentObservable.value)
+                    overridePendingTransition(R.anim.enter_left, R.anim.exit_right)
+                }
             }
         }
     }

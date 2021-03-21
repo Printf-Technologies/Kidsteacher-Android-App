@@ -1,5 +1,7 @@
 package com.printf.kidsteacher.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -12,6 +14,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.google.android.gms.ads.AdRequest
 import com.printf.kidsteacher.BaseActivity
+import com.printf.kidsteacher.PrintfAdActivity
 import com.printf.kidsteacher.R
 import com.printf.kidsteacher.been.videoData.Datum
 import com.printf.kidsteacher.common.PreferencesManager
@@ -33,7 +36,8 @@ class VideoDetailActivity : BaseActivity() {
         val bundle = intent.getBundleExtra("list")
         position = bundle.getInt("position")
         list = bundle.getSerializable("list") as List<Datum>?
-        init()
+
+        openAdScreen("Open")
     }
 
     private fun init() {
@@ -47,7 +51,9 @@ class VideoDetailActivity : BaseActivity() {
             mAdView.visibility = View.GONE
         }
 
-        ivBack.setOnClickListener { finish() }
+        ivBack.setOnClickListener {
+            openAdScreen("Close")
+        }
     }
 
     fun setupPlayer() {
@@ -92,5 +98,33 @@ class VideoDetailActivity : BaseActivity() {
     public override fun onPause() {
         super.onPause()
         releasePlayer()
+    }
+
+    private fun openAdScreen(action: String) {
+        var preferencesManager = PreferencesManager.instance(this)
+        var adActivity = Intent(this, PrintfAdActivity::class.java)
+
+        if (action.equals("Open")) {
+            adActivity.putExtra("InterAd", preferencesManager.isShowInterAdVideoScreenOnOpen())
+            adActivity.putExtra("InterAdVideo", preferencesManager.isShowVideoAdVideoScreenOnOpen())
+            startActivityForResult(adActivity, 2021)
+        } else {
+            adActivity.putExtra("InterAd", preferencesManager.isShowInterAdVideoScreenOnClose())
+            adActivity.putExtra("InterAdVideo", preferencesManager.isShowVideoAdVideoScreenOnClose())
+            startActivityForResult(adActivity, 2022)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == 2021) {
+                init()
+            }
+
+            if (requestCode == 2022) {
+                finish()
+            }
+        }
     }
 }
