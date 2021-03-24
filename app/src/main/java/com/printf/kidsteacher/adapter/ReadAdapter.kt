@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.ColorInt
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.printf.kidsteacher.R
@@ -15,7 +16,7 @@ import com.printf.kidsteacher.other.RecyclerViewClick
 import retrofit2.http.POST
 import java.util.*
 
-class ReadAdapter(var list: ArrayList<ReadBeen>, var recylerViewClick: RecyclerViewClick, var isShowBorder : Boolean = false) :
+class ReadAdapter(var list: ArrayList<ReadBeen>, var recylerViewClick: RecyclerViewClick, @ColorInt var color : Int, var isShowBorder : Boolean = false) :
         RecyclerView.Adapter<ReadAdapter.MyViewHolder>() {
 
     var isOpened = false
@@ -50,6 +51,7 @@ class ReadAdapter(var list: ArrayList<ReadBeen>, var recylerViewClick: RecyclerV
             if(isShowBorder)
                 itemRowBinding.llImageParent.setBackgroundResource(R.drawable.border)
 
+            itemRowBinding.tvName.setTextColor(color)
 
 
             itemRowBinding.item = data
@@ -70,6 +72,7 @@ class ReadAdapter(var list: ArrayList<ReadBeen>, var recylerViewClick: RecyclerV
                     override fun onAnimationEnd(animator: Animator) {
                         //isOpened = false
                         recylerViewClick.OnClick(data.img, data.name, position)
+                        isOpened = false
                     }
 
                     override fun onAnimationCancel(animator: Animator) {

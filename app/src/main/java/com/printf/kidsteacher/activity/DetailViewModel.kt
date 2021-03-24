@@ -21,6 +21,10 @@ class DetailViewModel : ViewModel() {
         isSpeakerOnObservable.value = !isSpeakerOnObservable.value!!
     }
 
+    fun setIsSpeakerOn(isSpeaker : Boolean){
+        isSpeakerOnObservable.value = isSpeaker
+    }
+
     var subCategoryObservable = MutableLiveData<String>()
     fun setSubCategory(subCategory: String) {
         subCategoryObservable.value = subCategory

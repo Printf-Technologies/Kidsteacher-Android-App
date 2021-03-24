@@ -124,7 +124,12 @@ class WriteFragment : BaseFragment(), RecyclerViewClick {
 
         val gridLayoutManager = GridLayoutManager(requireContext(), 4)
         rv_write.layoutManager = gridLayoutManager
-        rv_write.adapter = ReadAdapter(list, this, subCategory.isNotEmpty())
+
+        var color = resources.getColor(R.color.colorWhite)
+        if(fragmentType.equals("Write", true))
+            color = resources.getColor(R.color.pink)
+
+        rv_write.adapter = ReadAdapter(list, this, color,  subCategory.isNotEmpty())
     }
 
 

@@ -58,7 +58,6 @@ class DetailActivity : BaseActivity() {
                 ivSpeaker.setImageResource(R.drawable.ic_bimg)
                 ripple_repeat.visibility = View.GONE
             }
-
         }
 
 
@@ -76,6 +75,8 @@ class DetailActivity : BaseActivity() {
 
             //extra button
             ripple_repeat.visibility = View.VISIBLE
+            ivSpeaker.setImageResource(R.drawable.ic_aimg)
+            viewModel.setIsSpeakerOn(true)
             ripple_sound.visibility = View.VISIBLE
             llSearchIcon.visibility = View.GONE
 
@@ -177,6 +178,9 @@ class DetailActivity : BaseActivity() {
         }
 
         openAdScreen("Open")
+        viewModel.intentObservable.observe(this, Observer<Intent> { openIntent ->
+            openAdScreen("Close")
+        })
     }
 
     private fun replaceFragment(fragment: Fragment, fragmentTag: String) {
@@ -211,8 +215,13 @@ class DetailActivity : BaseActivity() {
             if (requestCode == 2021) {
             }
             if (requestCode == 2022) {
-                overridePendingTransition(R.anim.enter_right, R.anim.exit_left)
-                finish()
+                if (viewModel.intentObservable.value == null) {
+                    overridePendingTransition(R.anim.enter_right, R.anim.exit_left)
+                    finish()
+                } else {
+                    startActivity(viewModel.intentObservable.value)
+                    overridePendingTransition(R.anim.enter_left, R.anim.exit_right)
+                }
             }
         }
     }
