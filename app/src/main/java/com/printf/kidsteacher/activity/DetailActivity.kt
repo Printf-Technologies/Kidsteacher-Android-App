@@ -191,7 +191,7 @@ class DetailActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        openAdScreen("Close")
+        viewModel.setIntent(null)
     }
 
     private fun openAdScreen(action: String) {
