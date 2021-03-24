@@ -9,21 +9,16 @@
         android:background="@color/colorBlack">
 
         <com.google.android.exoplayer2.ui.PlayerView
-            android:id="@+id/video_view"
+            android:id="@+id/playerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:resize_mode="fill"
             app:show_buffering="always"
-            android:layout_above="@id/adView"/>
+            android:layout_above="@id/mAdView"/>
 
-        <!--<tcking.github.com.giraffeplayer2.VideoView
-            android:id="@+id/video_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/adView"/>-->
 
         <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
+            android:id="@+id/mAdView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

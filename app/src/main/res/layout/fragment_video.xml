@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_message"
-                android:text="No internet connection. Please connect to internet and try again."
+                android:text="Awesome videos coming soon. We are creating awesome videos for you."
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_12sdp"
                 android:layout_marginBottom="@dimen/_10sdp"/>

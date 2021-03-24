@@ -23,17 +23,22 @@ import java.util.ArrayList;
 public class ViewPagerAdapter extends PagerAdapter {
 
     Context context;
-    ArrayList<ViewModel> viewModels;
+    ArrayList<ViewModel> viewModels = new ArrayList<>();
     LayoutInflater inflater;
     OnListItemClick onListItemClick;
     String from;
 
-    public ViewPagerAdapter(Context context, ArrayList<ViewModel> viewModels, String from, OnListItemClick onListItemClick) {
+    public void updateData(ArrayList<ViewModel> data, String from){
+        this.from = from;
+        viewModels.clear();
+        viewModels.addAll(data);
+        notifyDataSetChanged();
+    }
+
+    public ViewPagerAdapter(Context context, OnListItemClick onListItemClick) {
         this.context = context;
-        this.viewModels = viewModels;
         this.onListItemClick = onListItemClick;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.from = from;
     }
 
     @Override
