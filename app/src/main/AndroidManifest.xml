@@ -52,7 +52,6 @@
             android:configChanges="keyboardHidden|orientation|screenSize"/>
 
         <activity android:name=".PrintfAdActivity"
-            android:screenOrientation="landscape"
             android:theme="@style/Theme.Transparent"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
 

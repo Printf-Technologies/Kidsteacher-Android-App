@@ -42,7 +42,8 @@ class VideoFragment : BaseFragment(), LifecycleObserver, RecyclerViewClick {
         } ?: throw Exception("Invalid Activity")
 
         viewModel.searchObservable.observe(this, Observer<String> { search ->
-            videoAdapter!!.filter(search)
+            if(videoAdapter != null)
+                videoAdapter!!.filter(search)
         })
 
         mView = CatLoadingView()
