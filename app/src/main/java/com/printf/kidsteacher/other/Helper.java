@@ -30,6 +30,10 @@ public class Helper
             w = displayMetrics.widthPixels;
         }
 
+        if(w <= 0){
+            w = 400;
+        }
+
         return w;
     }
 
@@ -41,6 +45,10 @@ public class Helper
             DisplayMetrics displayMetrics = new DisplayMetrics();
             ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
             h = displayMetrics.heightPixels;
+        }
+
+        if(h <= 0){
+            h = 400;
         }
 
         return h;

@@ -1,5 +1,7 @@
 package com.printf.kidsteacher
 
+import android.content.pm.ActivityInfo
+import android.os.Build
 import android.os.Bundle
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
@@ -15,6 +17,11 @@ class PrintfAdActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         adCount = 1
         setContentView(R.layout.activity_printf_ad)
+
+        //android O fix bug orientation
+        if (android.os.Build.VERSION.SDK_INT != Build.VERSION_CODES.O) {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+        }
 
         /*var testDeviceIds = listOf("88006378043BFA148015652F08E56307")
         var configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build()
