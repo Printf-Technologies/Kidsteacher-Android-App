@@ -166,7 +166,13 @@ class DetailActivity : BaseActivity() {
             false
         })
 
+        openAdScreen("Open")
+        viewModel.intentObservable.observe(this, Observer<Intent> { openIntent ->
+            openAdScreen("Close")
+        })
+    }
 
+    fun startActivityFragmentInit(){
         val fragmentName = intent.extras!!.getString("FragmentType")
 
         if (fragmentName.equals("Read", ignoreCase = true)) {
@@ -176,18 +182,13 @@ class DetailActivity : BaseActivity() {
         } else if (fragmentName.equals("video", ignoreCase = true)) {
             rl_video.performClick()
         }
-
-        openAdScreen("Open")
-        viewModel.intentObservable.observe(this, Observer<Intent> { openIntent ->
-            openAdScreen("Close")
-        })
     }
 
     private fun replaceFragment(fragment: Fragment, fragmentTag: String) {
         val fragmentManager = this.supportFragmentManager
         val ft = fragmentManager.beginTransaction()
-        ft?.replace(R.id.frameLayout, fragment, fragmentTag)
-        ft?.commit()
+        ft.replace(R.id.frameLayout, fragment, fragmentTag)
+        ft.commit()
     }
 
     override fun onBackPressed() {
@@ -213,6 +214,7 @@ class DetailActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 2021) {
+                startActivityFragmentInit()
             }
             if (requestCode == 2022) {
                 if (viewModel.intentObservable.value == null) {

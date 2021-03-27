@@ -74,6 +74,8 @@ class SubCategoryActivity : BaseActivity() {
 
             //extra button
             ripple_repeat.visibility = View.VISIBLE
+            ivSpeaker.setImageResource(R.drawable.ic_aimg)
+            viewModel.setIsSpeakerOn(true)
             ripple_sound.visibility = View.VISIBLE
             llSearchIcon.visibility = View.GONE
 
@@ -182,6 +184,14 @@ class SubCategoryActivity : BaseActivity() {
             false
         })
 
+        openAdScreen("Open")
+
+        viewModel.intentObservable.observe(this, Observer<Intent> { openIntent ->
+            openAdScreen("Close")
+        })
+    }
+
+    fun startActivityFragmentInit(){
         val fragmentName = intent.extras!!.getString("FragmentType")
 
         if (fragmentName.equals("Read", ignoreCase = true)) {
@@ -191,19 +201,13 @@ class SubCategoryActivity : BaseActivity() {
         } else if (fragmentName.equals("video", ignoreCase = true)) {
             rl_video.performClick()
         }
-
-        openAdScreen("Open")
-
-        viewModel.intentObservable.observe(this, Observer<Intent> { openIntent ->
-            openAdScreen("Close")
-        })
     }
 
     private fun replaceFragment(fragment: Fragment, fragmentTag: String) {
         val fragmentManager = this.supportFragmentManager
         val ft = fragmentManager.beginTransaction()
-        ft?.replace(R.id.frameLayout, fragment, fragmentTag)
-        ft?.commit()
+        ft.replace(R.id.frameLayout, fragment, fragmentTag)
+        ft.commit()
     }
 
     override fun onBackPressed() {
@@ -229,6 +233,7 @@ class SubCategoryActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 2021) {
+                startActivityFragmentInit()
             }
             if (requestCode == 2022) {
                 if(viewModel.intentObservable.value == null){
